@@ -1,0 +1,25 @@
+@mixin fonts($fz, $lh, $fw: 400) {
+    font-size: $fz;
+    line-height: $lh;
+    font-weight: $fw;
+}
+
+%buttons {
+    padding: 20px 25px;
+    @include fonts(20px, 20px);
+    border-radius: 35px;
+    background: lighten(transparent, 3%);
+    border: 1px solid rgba(#50735F, 4%);
+    box-shadow: 1px 1px 0 #50735F, 0px 1px 6px #c3853e;
+    letter-spacing: 1px;
+    transition: all 150ms linear;
+    cursor: pointer;
+}
+
+%buttons-hover {
+    background: rgba(#50735F, 0.5);
+    border: 1px solid rgba(#000, .05);
+    box-shadow: inset -1px 2px 7px 4px rgb(0 0 0 / 20%);
+    text-shadow: -1px -1px 0 rgba(#C58A46, 9.5%);
+    transition: all 250ms linear;
+}
