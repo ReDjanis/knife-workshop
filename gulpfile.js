@@ -101,7 +101,7 @@ function watching() {
 function building() {
     return src([
         'app/css/style.min.css',
-        'app/images/content/*.*',
+        'app/images/content/**/*.*',
         '!app/images/*.svg',
         'app/images/sprite.svg',
         'app/fonts/*.*',
