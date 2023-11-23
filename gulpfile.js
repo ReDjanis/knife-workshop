@@ -48,7 +48,8 @@ function scripts() {
         'node_modules/jquery/dist/jquery.js',
         'app/js/slick.min.js',
         'node_modules/mixitup/dist/mixitup.js',
-        'app/js/main.js'
+        'app/js/*.js',
+        '!app/js/main.min.js'
     ])
         .pipe(concat('main.min.js'))
         .pipe(uglify())

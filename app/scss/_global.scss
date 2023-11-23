@@ -21,6 +21,7 @@ body {
 .main {
     flex: 1 0 auto;
     width: 100%;
+    padding-top: 115px;
 }
 
 .telegram {
@@ -61,6 +62,7 @@ body {
     }
 
     &__link {
+        color: #F4F3F0;
         font-weight: 300;
         text-decoration: none;
         text-transform: uppercase;

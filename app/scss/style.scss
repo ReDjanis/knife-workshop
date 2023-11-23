@@ -7,7 +7,7 @@
     box-sizing: border-box;
     font-family: 'Merriweather', serif;
     font-weight: 400;
-    color: #F4F3F0;
+    color: #000;
 }
 
 .header {
@@ -26,6 +26,12 @@
         display: flex;
         justify-content: space-around;
         height: 100%;
+    }
+
+    &__logo-link {
+        height: 200px;
+        background-color: #50735F;
+        border-radius: 50%;
     }
 
     &__logo {
@@ -51,7 +57,6 @@
         border-radius: 20px;
         border: 1px solid #50735F;
         @include fonts(16px, 16px);
-        color: #000;
         background-image: url('../images/sprite.svg#search-icon');
         background-repeat: no-repeat;
         background-size: auto 50%;
@@ -62,8 +67,7 @@
 .present {
     width: 100%;
     height: 1000px;
-    padding-top: 115px;
-    background-image: url('../images/content/10.avif');
+    background-image: url('../images/content/10.webp');
     background-repeat: no-repeat;
     background-position: top left;
     background-size: cover;
@@ -80,6 +84,7 @@
     &__title {
         max-width: 900px;
         width: 100%;
+        color: #F4F3F0;
         font-family: 'Playfair Display', serif;
         @include fonts(74px, 105px, 700);
         padding: 130px 0 80px;
@@ -87,6 +92,7 @@
     }
 
     &__title_small {
+        color: #F4F3F0;
         font-family: 'Playfair Display', serif;
         padding-left: 80px;
     }
@@ -96,6 +102,7 @@
     }
 
     &__description {
+        color: #F4F3F0;
         font-family: 'Playfair Display', serif;
         font-style: italic;
         @include fonts(28px, 45px);
@@ -105,6 +112,7 @@
 
     &__btn {
         @extend %buttons;
+        color: #F4F3F0;
         margin-top: 50px;
 
         &:hover {
@@ -130,19 +138,19 @@
 
     &__img {
         max-width: 500px;
+    }
 
-        &:first-child {
-            position: absolute;
-            top: 0;
-            left: 5%;
-            z-index: 1;
-        }
+    &__img-first {
+        position: absolute;
+        top: 0;
+        left: 5%;
+        z-index: 1;
+    }
 
-        &:last-child {
-            position: absolute;
-            bottom: 0;
-            right: 5%;
-        }
+    &__img-last {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
     }
 
     &__text {
@@ -155,21 +163,18 @@
 
     &__title {
         @include fonts(32px, 32px);
-        color: #000;
         padding: 0px 50px 30px 50px;
         text-align: center;
     }
 
     &__description {
         @include fonts(24px, 40px);
-        color: #000;
         text-indent: 30px;
         margin-bottom: 10px;
     }
 
     &__description_bold {
         display: inline-block;
-        color: #000;
         font-weight: 700;
         padding-top: 20px;
     }
@@ -182,7 +187,6 @@
     &__btn {
         @extend %buttons;
         margin-top: 35px;
-        color: #000;
 
         &:hover {
             @extend %buttons-hover;
@@ -204,13 +208,11 @@
 
     &__top-title {
         @include fonts(32px, 40px, 300);
-        color: #000;
         text-transform: uppercase;
     }
 
     &__top-link {
         @include fonts(24px, 40px);
-        color: #000;
         text-decoration: none;
         border-bottom: 1px solid black;
 
@@ -236,13 +238,22 @@
         .gallery__item:first-child {
             grid-row: span 2;
         }
+
+        .gallery__item:nth-child(4),
+        .gallery__item:nth-child(5) {
+            max-height: 307px;
+        }
     }
 
     &__items.other {
-        grid-template-rows: repeat(3, auto);
+        grid-template-rows: repeat(2, auto);
 
         .gallery__item:nth-child(4) {
             grid-column: span 2;
+        }
+
+        .gallery__item:nth-child(5) {
+            max-height: 523px;
         }
     }
 
@@ -269,7 +280,6 @@
 
     &__btn {
         @extend %buttons;
-        color: #000;
         background-color: transparent;
 
         &:hover {
@@ -294,7 +304,6 @@
 
     &__top-title {
         @include fonts(34px, 40px, 300);
-        color: #000;
         text-transform: uppercase;
     }
 
@@ -312,14 +321,12 @@
 
     &__text {
         flex: 0 0 50%;
-        color: #494138;
         padding: 20px 60px 20px 50px;
-        @include fonts(28px, 50px);
+        @include fonts(26px, 50px);
     }
 
     &__text_bold {
-        color: #494138;
-        @include fonts(28px, 50px, 700);
+        @include fonts(26px, 50px, 700);
     }
 
     .first {
@@ -400,7 +407,6 @@
 
     &__top-title {
         @include fonts(34px, 40px, 300);
-        color: #000;
         text-transform: uppercase;
     }
 
@@ -421,12 +427,13 @@
         width: 100%;
         height: 85px;
         background-color: #D9C7BB;
-        border-radius: 15px;
+        border: 1px solid rgba(#50735F, 4%);
+        box-shadow: 1px 1px 0 #50735F, 0px 1px 6px #c3853e;
         cursor: pointer;
 
         &[open] {
             height: 100%;
-            transition: 0.5s all;
+            transition: 1s ease;
         }
 
         &[open]>summary {
@@ -448,7 +455,7 @@
             height: 100%;
             padding: 0 0 20px 20px;
             @include fonts(24px, 40px);
-            color: #000;
+            letter-spacing: 0.5px;
         }
 
         &:hover summary {
@@ -466,7 +473,6 @@
         height: 100%;
         padding: 30px 0 30px 20px;
         @include fonts(24px, 24px, 700);
-        color: #000;
     }
 
     &__line {
@@ -490,6 +496,165 @@
         right: 30px;
         transform: rotate(-45deg);
     }
+}
+
+.catalog {
+    &__content {
+        padding: 0 15px;
+    }
+
+    &__nav {
+        background-color: #5b473a;
+        height: 100px;
+    }
+
+    &__items {
+        padding-top: 100px;
+        padding-bottom: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 30px;
+        row-gap: 30px;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ada9a9;
+        box-shadow: 0px 0px 7px 0px;
+    }
+
+    &__item-small {
+        max-width: 330px;
+    }
+
+    &__item-big {
+        max-width: 690px;
+    }
+
+    &__item-img {
+        height: 396px;
+    }
+
+    &__item-title {
+        flex-grow: 1;
+        @include fonts(20px, 20px, 700);
+        text-align: center
+    }
+
+    &__item-subtitle {
+        flex-grow: 1;
+        @include fonts(20px, 30px);
+        text-align: center;
+        margin-top: -5px;
+    }
+
+    &__item-btn {
+        @extend %buttons;
+        background: rgba(#50735F, 0.5);
+        border: none;
+        margin-bottom: 10px;
+
+        &:hover {
+            @extend %buttons-hover;
+            border: none;
+        }
+    }
+}
+
+.flex-element {
+    display: flex;
+}
+
+.slider {
+    width: 100%;
+    cursor: pointer;
+
+    .slick-list {
+        overflow: hidden;
+    }
+
+    .slick-track {
+        display: flex;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            object-position: middle top;
+        }
+    }
+
+    .slick-slide {
+        height: auto;
+    }
+    //отсюда
+    /*
+    .slick-list,
+.slick-track {
+  transition-delay: 10ms;
+}
+.slick-initialized .slick-slide {
+visibility: visible;
+display: block;
+}
+    .slick-slide,
+    .slick-slider .slick-track,
+    .slick-slider .slick-list {
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+
+        -webkit-perspective: 1000;
+        -moz-perspective: 1000;
+        -ms-perspective: 1000;
+        perspective: 1000;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    */
+//досюда
+    .slick-dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        li {
+            margin: 0 5px;
+        }
+
+        button {
+            font-size: 0;
+            background-color: rgb(173, 169, 169);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+
+    .slick-active {
+        button {
+            background-color: #47755b;
+        }
+    }
+
+
+
+
 }
 
 .footer {
@@ -535,12 +700,14 @@
     &__location-text {
         height: 100%;
         padding-left: 10px;
+        color: #F4F3F0;
         @include fonts(18px, 18px);
         letter-spacing: 1px;
     }
 
     &__rights {
         padding-left: 30px;
+        color: #F4F3F0;
         @include fonts(20px, 20px);
         letter-spacing: 1px;
     }
