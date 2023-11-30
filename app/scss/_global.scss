@@ -117,3 +117,16 @@ body {
         height: 25px;
     }
 }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+
+    &__btn {
+        cursor: pointer;
+        letter-spacing: 1px;
+    }
+}
+
