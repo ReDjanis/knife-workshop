@@ -1,4 +1,7 @@
 'use strict'
+
+
+
 const mainPage = document.querySelector('#main-page');
 const catalogPage = document.querySelector('#catalog-page');
 
@@ -17,4 +20,3 @@ function checkActivePage() {
         catalogPage.hidden = false;
       }
 }
-

@@ -438,46 +438,47 @@
 
                 <div class="container catalog__content">
                     <div class="catalog__top">
-                        <h1 class="catalog__top-title">
+                        <h2 class="catalog__top-title">
                             Мои работы
-                        </h1>
+                        </h2>
                     </div>
                     <div class="catalog__buttons buttons">
                         <button class="catalog__btn buttons__btn" data-filter="knives-mini">
                             ножи-подвески
-                        
                         </button>
                         <button class="catalog__btn buttons__btn" data-filter="knives-traditional">
                             ножи
-                         
                         </button>
                         <button class="catalog__btn buttons__btn" data-filter="knives-kitchen">
                             кухонные ножи
-                        
                         </button>
                         <button class="catalog__btn buttons__btn" data-filter="axes">
                             топоры
-                          
                         </button>
                         <button class="catalog__btn buttons__btn" data-filter="damask-steel">
                             дамасская сталь
-                          
                         </button>
                         <button class="catalog__btn buttons__btn" data-filter="other">
                             разное
-                            
                         </button>
-                        
                     </div>
-                    <div class="catalog__items">
-
-                    </div>
+                    <div class="catalog__items"></div>
                 </div>
             </section>
         </main>
         <!--=include footer.html -->
+        <dialog class="modal">
+            <div class="modal__wrapper">
+                <div class="modal__slider"></div>
+                <div class="modal__description">
+                    <h3 class="modal__title"></h3>
+               
+                    <button class="modal__btn">Заказать</button>
+                </div>
+            </div>
+        </dialog>
     </div>
-
+    <div class="background" hidden></div>
     <script src="./js/slick.min.js"></script>
     <script src="./js/main.min.js"></script>
 </body>
