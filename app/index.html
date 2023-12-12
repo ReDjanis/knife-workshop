@@ -95,9 +95,9 @@
                 <div class="container welcome__content">
                     <div class="welcome__images">
                         <picture>
-                            <source srcset="./images/content/20.avif" type="image/avif">
-                            <source srcset="./images/content/20.webp" type="image/webp">
-                            <img class="welcome__img welcome__img-first" src="./images/content/20.jpg"
+                            <source srcset="./images/content/11.avif" type="image/avif">
+                            <source srcset="./images/content/11.webp" type="image/webp">
+                            <img class="welcome__img welcome__img-first" src="./images/content/11.jpg"
                                 alt="Горящий огонь в горне.">
                         </picture>
                         <picture>
@@ -498,32 +498,37 @@
             <section class="catalog">
 
                 <div class="container catalog__content">
-                    <div class="catalog__top">
-                        <h2 class="catalog__top-title">
-                            Мои работы
-                        </h2>
+                    <div class="catalog__wrp">
+                        <div class="catalog__top">
+                            <h2 class="catalog__top-title">
+                                Мои работы
+                            </h2>
+                        </div>
+                        <div class="catalog__buttons buttons">
+                            <button class="catalog__btn buttons__btn" data-filter="knives-mini">
+                                ножи-подвески
+                            </button>
+                            <button class="catalog__btn buttons__btn" data-filter="knives-traditional">
+                                ножи
+                            </button>
+                            <button class="catalog__btn buttons__btn" data-filter="knives-kitchen">
+                                кухонные ножи
+                            </button>
+                            <button class="catalog__btn buttons__btn" data-filter="axes">
+                                топоры
+                            </button>
+                            <button class="catalog__btn buttons__btn" data-filter="damask-steel">
+                                дамасская сталь
+                            </button>
+                            <button class="catalog__btn buttons__btn" data-filter="other">
+                                разное
+                            </button>
+                        </div>
+                        <div class="catalog__items"></div>
                     </div>
-                    <div class="catalog__buttons buttons">
-                        <button class="catalog__btn buttons__btn" data-filter="knives-mini">
-                            ножи-подвески
-                        </button>
-                        <button class="catalog__btn buttons__btn" data-filter="knives-traditional">
-                            ножи
-                        </button>
-                        <button class="catalog__btn buttons__btn" data-filter="knives-kitchen">
-                            кухонные ножи
-                        </button>
-                        <button class="catalog__btn buttons__btn" data-filter="axes">
-                            топоры
-                        </button>
-                        <button class="catalog__btn buttons__btn" data-filter="damask-steel">
-                            дамасская сталь
-                        </button>
-                        <button class="catalog__btn buttons__btn" data-filter="other">
-                            разное
-                        </button>
+                    <div class="pagination">
+                        <ul class="pagination__list"></ul>
                     </div>
-                    <div class="catalog__items"></div>
                 </div>
             </section>
         </main>

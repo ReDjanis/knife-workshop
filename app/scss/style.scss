@@ -544,6 +544,10 @@
 .catalog {
     &__content {
         padding: 0 15px;
+        min-height: calc(100vh - 115px - 180px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     &__top {
@@ -606,10 +610,10 @@
     &__items {
         padding-bottom: 50px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-        grid-template-rows: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(253px, 1fr));
         grid-auto-flow: dense;
-        gap: 30px;
+        gap: 10px;
     }
 
     &__item {
@@ -618,7 +622,8 @@
         align-items: center;
         row-gap: 20px;
         width: 100%;
-        padding: 15px 15px 25px 15px;
+
+        padding: 10px 10px 15px 10px;
         border: 1px solid #ada9a9;
         box-shadow: 0px 0px 9px 1px #9f9696;
     }
@@ -626,9 +631,19 @@
     &__item_small {
         grid-row: span 2;
         grid-column: span 1;
+        max-height: 517px;
+        min-height: 510px;
+        height: 100%;
 
         img {
-            height: 450px;
+            height: 307.5px;
+        }
+
+        .catalog__item-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
     }
 
@@ -636,14 +651,23 @@
         grid-column: span 2;
         grid-row: span 1;
         flex-direction: row;
-        column-gap: 40px;
+        column-gap: 10px;
 
         img {
-            height: 296px;
+            height: 205px;
         }
 
         .slider {
-            max-width: 450px;
+            max-width: 307px;
+        }
+
+        .catalog__item-desc {
+            row-gap: 18px;
+            justify-content: flex-end;
+        }
+
+        .catalog__item-title {
+            margin-bottom: 10px;
         }
     }
 
@@ -651,29 +675,34 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
+        width: 100%;
+        height: 100%;
+        padding-bottom: 22px;
         row-gap: 10px;
-        margin-top: 20px;
     }
 
     &__item-title {
         flex-grow: 1;
-        @include fonts(20px, 30px, 700);
+        @include fonts(16px, 22px, 700);
         text-align: center;
     }
 
     &__item-subtitle {
         flex-grow: 1;
-        @include fonts(17px, 25px);
+        @include fonts(16px, 25px);
         text-align: center;
+
     }
 
     &__item-btn {
         @extend %buttons;
+        @include fonts(16px, 20px);
+        padding: 5px 17px;
         background: rgba(#50735F, 0.5);
         border: none;
-        width: 152px;
-        margin-top: 20px;
+        margin-top: 12px;
+
 
         &:hover {
             @extend %buttons-hover;
@@ -853,7 +882,6 @@ display: block;
     }
 
     &__slider {
-        max-width: 800px;
         width: 100%;
         max-height: 1100px;
         height: 100%;
@@ -877,12 +905,12 @@ display: block;
 
         .slick-prev {
             left: 0;
-            background: rgb(81 78 71 / 20%) url(../images/sprite.svg#left-arrow-icon) 0 center / 100% no-repeat;
+            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#left-arrow-icon) 0 center / 100% no-repeat;
         }
 
         .slick-next {
             right: 0;
-            background: rgb(81 78 71 / 20%) url(../images/sprite.svg#right-arrow-icon) 0 center / 100% no-repeat;
+            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#right-arrow-icon) 0 center / 100% no-repeat;
         }
 
         .slick-track {
@@ -892,7 +920,7 @@ display: block;
             img {
                 max-height: 60vh;
                 object-fit: contain;
-                background-color: #555454;
+                background-color: #f1eee6;
             }
         }
     }
@@ -944,4 +972,25 @@ display: block;
 
 .scroll-lock {
     overflow: hidden;
+}
+
+.pagination {
+    width: 100%;
+
+    &__list {
+        display: flex;
+        list-style-type: none;  
+        column-gap: 10px;
+    }
+
+    &__item {
+        padding: 10px;
+        @include fonts(18px, 20px);
+        cursor: pointer;
+    }
+
+    &__item_active {
+        color: #47755b;
+        font-weight: 700;
+    }
 }
