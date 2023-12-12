@@ -32,42 +32,42 @@
             </section>
             <section class="welcome">
                 <div class="container welcome__content">
-                    <div class="welcome__images">
-                        <picture>
-                            <source srcset="./images/content/11.avif" type="image/avif">
-                            <source srcset="./images/content/11.webp" type="image/webp">
-                            <img class="welcome__img welcome__img-first" src="./images/content/11.jpg"
-                                alt="Горящий огонь в горне.">
-                        </picture>
-                        <picture>
-                            <source srcset="./images/content/21.avif" type="image/avif">
-                            <source srcset="./images/content/21.webp" type="image/webp">
-                            <img class="welcome__img welcome__img-last" src="./images/content/21.jpg"
-                                alt="Кузнец заглядывает в горн.">
-                        </picture>
-                    </div>
-                    <div class="welcome__text">
-                        <h2 class="welcome__title">
-                            Добро пожаловать!
-                        </h2>
-                        <p class="welcome__description">
-                            Меня зовут Александр, я кузнец-оружейник. Приветствую всех любителей и ценителей клинков на
-                            своем сайте!
-                        </p>
-                        <p class="welcome__description">
-                            Здесь вы можете ознакомиться с каталогом выполненных мной заказов, почитать историю обо мне
-                            и моем ремесле и, конечно, вдохновившись представленными работами
-                            и духом кузнечного мастерства, вы можете связаться со мной, чтобы обговорить детали вашего
-                            заказа.
-                            <span class="welcome__description_bold">
-                                Желаю приятного времяпрепровождения!
-                            </span>
+                    <h2 class="welcome__title">
+                        Добро пожаловать!
+                    </h2>
+                    <div class="welcome__wrp">
+                        <div class="welcome__image">
+                            <picture>
+                                <source srcset="./images/content/11.avif" type="image/avif">
+                                <source srcset="./images/content/11.webp" type="image/webp">
+                                <img class="welcome__img welcome__img-first" src="./images/content/11.jpg"
+                                    alt="Горящий огонь в горне.">
+                            </picture>
 
-                        </p>
-                        <div class="welcome__button">
-                            <button class="welcome__btn">Больше обо мне</button>
                         </div>
+                        <div class="welcome__text">
 
+                            <p class="welcome__description">
+                                Меня зовут Александр, я кузнец-оружейник. Приветствую всех любителей и ценителей клинков
+                                на
+                                своем сайте!
+                            </p>
+                            <p class="welcome__description">
+                                Здесь вы можете ознакомиться с каталогом выполненных мной заказов, почитать историю обо
+                                мне
+                                и моем ремесле и, конечно, вдохновившись представленными работами
+                                и духом кузнечного мастерства, вы можете связаться со мной, чтобы обговорить детали
+                                вашего
+                                заказа.
+                                <span class="welcome__description_bold">
+                                    Желаю приятного времяпрепровождения!
+                                </span>
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="welcome__button">
+                        <button class="welcome__btn">Больше обо мне</button>
                     </div>
                 </div>
             </section>
@@ -78,7 +78,13 @@
                             Галерея
                         </h2>
                         <a class="gallery__top-link" id="gallery-link" href="#">
-                            в каталог
+                            <p class="gallery__top-text">
+                                в каталог
+                            </p>
+                            
+                            <svg class="gallery__top-svg">
+                                <use href="./images/sprite.svg#right-arrow-icon"></use>
+                            </svg>
                         </a>
                     </div>
                     <div class="gallery__inner">
@@ -288,7 +294,7 @@
                     <div class="benefits__items">
                         <div class="benefits__item">
                             <div class="benefits__text first">
-                                Все изделия сделаны по
+                                Все клинки изготовлены по
                                 <span class="benefits__text_bold">
                                     индивидуальному заказу.
                                 </span>
@@ -325,7 +331,7 @@
                         </div>
                         <div class="benefits__item">
                             <div class="benefits__text third">
-                                При желании могу изготовить нож, используя Ваши материалы.</br>
+                                При желании могу изготовить нож, используя Ваши материалы.</br></br>
                                 При заказе изделия на подарок есть вариант передачи заказа в
                                 <span class="benefits__text_bold">
                                     фирменной упаковке.
@@ -466,6 +472,9 @@
                         <div class="catalog__items"></div>
                     </div>
                     <div class="pagination">
+                        <button class="pagination__btn">
+                            показать еще
+                        </button>
                         <ul class="pagination__list"></ul>
                     </div>
                 </div>
@@ -477,7 +486,7 @@
                 <div class="modal__slider"></div>
                 <div class="modal__description">
                     <h3 class="modal__title"></h3>
-               
+
                     <button class="modal__btn">Заказать</button>
                 </div>
             </div>
