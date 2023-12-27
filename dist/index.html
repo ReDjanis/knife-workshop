@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.min.css">
+    <link  rel="icon" href="/favicon.ico">
 </head>
 
 <body>
@@ -22,13 +23,13 @@
         
                         <li class="menu__item">
         
-                            <a class="menu__link" id="main-link" href="#">Главная</a>
+                            <a class="menu__link" data-router="main-link" href="#">Главная</a>
         
                         </li>
         
                         <li class="menu__item">
         
-                            <a class="menu__link" id="catalog-link" href="#">Каталог</a>
+                            <a class="menu__link" data-router="catalog-link" href="#">Каталог</a>
         
                         </li>
         
@@ -49,7 +50,7 @@
                 </nav>
                 <div class="header__right-inner">
                     <div class="header__search">
-                        <input class="header__search-input" type="text" placeholder="Поиск по каталогу">
+                        <input class="header__search-input search-input" type="text" placeholder="Поиск по каталогу">
                     </div>
                     <div class="contacts">
                         <a class="contacts__social-link" href="">
@@ -102,14 +103,15 @@
                                 <source srcset="./images/content/11.avif" type="image/avif">
                                 <source srcset="./images/content/11.webp" type="image/webp">
                                 <img class="welcome__img welcome__img-first" src="./images/content/11.jpg"
-                                    alt="Горящий огонь в горне.">
+                                    alt="Кузнец стоит возле горна и держит на плече молот.">
                             </picture>
 
                         </div>
                         <div class="welcome__text">
 
                             <p class="welcome__description">
-                                Меня зовут Александр, я кузнец-оружейник. Приветствую всех любителей и ценителей клинков
+                                Меня зовут Александр, я кузнец-оружейник со стажем более 10 лет. Приветствую всех
+                                любителей и ценителей клинков
                                 на
                                 своем сайте!
                             </p>
@@ -120,6 +122,7 @@
                                 и духом кузнечного мастерства, вы можете связаться со мной, чтобы обговорить детали
                                 вашего
                                 заказа.
+                                </br>
                                 <span class="welcome__description_bold">
                                     Желаю приятного времяпрепровождения!
                                 </span>
@@ -138,11 +141,11 @@
                         <h2 class="gallery__top-title">
                             Галерея
                         </h2>
-                        <a class="gallery__top-link" id="gallery-link" href="#">
+                        <a class="gallery__top-link" data-router="catalog-link" href="#">
                             <p class="gallery__top-text">
                                 в каталог
                             </p>
-                            
+
                             <svg class="gallery__top-svg">
                                 <use href="./images/sprite.svg#right-arrow-icon"></use>
                             </svg>
@@ -177,167 +180,205 @@
                             </button>
                         </div>
                         <div class="gallery__items sort knives-mini">
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/1_01.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/1_01.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/1_01.jpg"
-                                        alt="Нож-подвеска Шебутной. На ноже одно круглое отверстие. На ножнах тиснение в виде силуэта кота.">
+                                    <source srcset="./images/content/gallery/1_01_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/1_01_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="1_01"
+                                        src="./images/content/gallery/1_01_01.jpg"
+                                        alt="Мини-клинок без рукояти, на конце круглое отверстие. Ножны темно-коричневого цвета с тиснением в виде кота.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/1_02.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/1_02.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/1_02.jpg"
-                                        alt="Три ножа-подвески. На каждом ноже по три круглых отверстия разного диаметра. На ножнах тиснение в виде .">
+                                    <source srcset="./images/content/gallery/1_02_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/1_02_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="1_02"
+                                        src="./images/content/gallery/1_02_01.jpg"
+                                        alt="Мини-клинки без рукоятей, на каждом по 3 круглых отверстия. На ножнах тиснения в виде чешуйчатых узоров и в виде солнца.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/1_03.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/1_03.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/1_03.jpg"
-                                        alt="Нож-подвеска Птичка. На рукояти сделана имитация птичьей головы - клюв и глаз. На ножнах тиснение в виде пера.">
+                                    <source srcset="./images/content/gallery/1_03_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/1_03_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="1_03"
+                                        src="./images/content/gallery/1_03_01.jpg"
+                                        alt="Мини-клинок без рукояти, на конце имитация птичьей головы - клюв и глаз. На ножнах тиснение в виде пера.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/1_04.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/1_04.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/1_04.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/1_04_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/1_04_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="1_04"
+                                        src="./images/content/gallery/1_04_01.jpg"
+                                        alt="Мини-нож с рукоятью из дерева неоднородного цвета. На ножнах тиснение в виде чешуйчатого узора.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/1_05.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/1_05.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/1_05.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/1_05_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/1_05_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="1_05"
+                                        src="./images/content/gallery/1_05_01.jpg"
+                                        alt="Мини-нож с рукоятью из дерева неоднородного цвета, клинок грубой формы с выемкой по длине. Ножны из толстой кожи с заклепками.">
                                 </picture>
                             </a>
                         </div>
                         <div class="gallery__items sort knives-traditional">
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/2_01.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/2_01.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/2_01.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/2_01_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/2_01_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="2_01"
+                                        src="./images/content/gallery/2_01_01.jpg"
+                                        alt="Нож с темным клинком из дамасской стали, рукоять черная со вставками из бронзы. Ножны черного цвета.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/2_02.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/2_02.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/2_02.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/2_02_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/2_02_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="2_02"
+                                        src="./images/content/gallery/2_02_01.jpg"
+                                        alt="Нож из стали bohler с рукоятью светло-коричневого цвета с черными полосами, ножны светло-коричневого цвета.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/2_03.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/2_03.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/2_03.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/2_03_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/2_03_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="2_03"
+                                        src="./images/content/gallery/2_03_01.jpg"
+                                        alt="Нож с темным клинком и черной ручкой, ножны черного цвета со вставкой из рога лося.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/2_04.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/2_04.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/2_04.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/2_04_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/2_04_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="2_04"
+                                        src="./images/content/gallery/2_04_01.jpg"
+                                        alt="Нож со светло-коричневой неоднородной рукоятью, ножны темно-бордового цвета.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/2_05.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/2_05.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/2_05.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/2_05_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/2_05_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="2_05"
+                                        src="./images/content/gallery/2_05_01.jpg"
+                                        alt="Крупный план основания клинка и рукояти бежевого цвета с желтизной, больстер в виде черно-белой вставки.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/2_06.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/2_06.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/2_06.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/2_06_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/2_06_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="2_06"
+                                        src="./images/content/gallery/2_06_01.jpg"
+                                        alt="Нож с клинком темного цвета и светло-зеленой неоднородной рукоятью с бежевой вставкой, ножны светло-коричневого цвета.">
                                 </picture>
                             </a>
                         </div>
                         <div class="gallery__items sort knives-kitchen">
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/3_01.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/3_01.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/3_01.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/3_01_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/3_01_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="3_01"
+                                        src="./images/content/gallery/3_01_01.jpg"
+                                        alt="Шеф-нож и 2 кухонных ножа поменьше с одинаковыми рукоятями неоднородного красного цвета со вставкой из красного дерева.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/3_02.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/3_02.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/3_02.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/3_02_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/3_02_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idObj="3_02"
+                                        src="./images/content/gallery/3_02_01.jpg"
+                                        alt="Кухонный нож с рукоятью светло-бежевого цвета вперемешку с черными полосами и вкраплениями и со вставкой из красного дерева.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/3_03.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/3_03.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/3_03.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/3_03_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/3_03_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="3_03"
+                                        src="./images/content/gallery/3_03_01.jpg"
+                                        alt="Шеф-нож и нож-универсал, с черными рукоятями.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/3_04.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/3_04.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/3_04.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/3_04_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/3_04_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="3_04"
+                                        src="./images/content/gallery/3_04_01.jpg"
+                                        alt="Шеф-нож с рукоятью бежевого цвета с вкраплениями красного и темно-зеленого, со вставкой из красного дерева.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/3_05.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/3_05.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/3_05.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/3_05_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/3_05_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="3_05"
+                                        src="./images/content/gallery/3_05_01.jpg"
+                                        alt="Шеф-нож с рукоятью от светло-зеленого до темно-зеленого цвета, ножны темно-зеленого цвета.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/3_06.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/3_06.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/3_06.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/3_06_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/3_06_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="3_06"
+                                        src="./images/content/gallery/3_06_01.jpg"
+                                        alt="Шеф-нож с рукоятью из красного дерева с ореховой вставкой.">
                                 </picture>
                             </a>
                         </div>
                         <div class="gallery__items sort other">
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/4_01.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/4_01.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/4_01.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/4_01_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/4_01_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="4_01"
+                                        src="./images/content/gallery/4_01_01.jpg"
+                                        alt="Топорик с клинком темного цвета, грубой формы, рукоять бежево-красного цвета со вставкой из красного дерева.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/4_02.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/4_02.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/4_02.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/4_02_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/4_02_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="4_02"
+                                        src="./images/content/gallery/4_02_01.jpg" alt="Метательные ножи.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/4_03.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/4_03.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/4_03.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/4_03_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/4_03_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="4_03"
+                                        src="./images/content/gallery/4_03_01.jpg"
+                                        alt="Топорик с клинком неоднородного цвета, грубой формы, рукоять коричневого цвета с бежевой вставкой.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/4_04.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/4_04.webp" type="image/webp">
-                                    <img class="gallery__img_big" src="./images/content/gallery/4_04.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/4_04_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/4_04_01.webp" type="image/webp">
+                                    <img class="gallery__img_big" data-idobj="4_04"
+                                        src="./images/content/gallery/4_04_01.jpg" alt="Меч.">
                                 </picture>
                             </a>
-                            <a class="gallery__item" href="#">
+                            <a class="gallery__item" href="">
                                 <picture>
-                                    <source srcset="./images/content/gallery/4_05.avif" type="image/avif">
-                                    <source srcset="./images/content/gallery/4_05.webp" type="image/webp">
-                                    <img class="gallery__img" src="./images/content/gallery/4_05.jpg" alt="нож">
+                                    <source srcset="./images/content/gallery/4_05_01.avif" type="image/avif">
+                                    <source srcset="./images/content/gallery/4_05_01.webp" type="image/webp">
+                                    <img class="gallery__img" data-idobj="4_05"
+                                        src="./images/content/gallery/4_05_01.jpg" alt="Топорики небольшого размера.">
                                 </picture>
                             </a>
                         </div>
@@ -368,8 +409,9 @@
                                 <picture>
                                     <source srcset="./images/content/products/9_03_01.avif" type="image/avif">
                                     <source srcset="./images/content/products/9_03_01.webp" type="image/webp">
-                                    <img class="benefits__img" src="./images/content/products/9_03_01.jpg"
-                                        alt="Нож и ножны лежат крест-накрест на траве. На рукояти вырезаны абстрактные рисунки, на конце вырезана голова животного, с оскалом ">
+                                    <img class="benefits__img" data-idobj="9_03"
+                                        src="./images/content/products/9_03_01.jpg"
+                                        alt="Нож с оригинальной рукоятью, на которой вырезаны абстрактные узоры, переходящие в голову кота на навершии.">
                                 </picture>
                             </a>
                         </div>
@@ -378,7 +420,9 @@
                                 <picture>
                                     <source srcset="./images/content/products/2_12_05.avif" type="image/avif">
                                     <source srcset="./images/content/products/2_12_05.webp" type="image/webp">
-                                    <img class="benefits__img" src="./images/content/products/2_12_05.jpg" alt="Нож">
+                                    <img class="benefits__img" data-idobj="2_12"
+                                        src="./images/content/products/2_12_05.jpg"
+                                        alt="Клинок крупным планом, на котором по всей длине изображены волнистые линии, местами закольцованные.">
                                 </picture>
                             </a>
                             <div class="benefits__text second">
@@ -392,7 +436,7 @@
                         </div>
                         <div class="benefits__item">
                             <div class="benefits__text third">
-                                При желании могу изготовить нож, используя Ваши материалы.</br></br>
+                                При желании могу изготовить нож, используя ваши материалы.</br></br>
                                 При заказе изделия на подарок есть вариант передачи заказа в
                                 <span class="benefits__text_bold">
                                     фирменной упаковке.
@@ -402,7 +446,8 @@
                                 <picture>
                                     <source srcset="./images/content/products/7_08_08.avif" type="image/avif">
                                     <source srcset="./images/content/products/7_08_08.webp" type="image/webp">
-                                    <img class="benefits__img" src="./images/content/products/7_08_08.jpg" alt="Нож">
+                                    <img class="benefits__img" data-idobj="7_08"
+                                        src="./images/content/products/7_08_08.jpg" alt="Подарочная упаковка.">
                                 </picture>
                             </a>
                         </div>
@@ -530,13 +575,44 @@
                                 разное
                             </button>
                         </div>
-                        <div class="catalog__items"></div>
+                        <div class="catalog__items" id="cardsInCatalog"></div>
                     </div>
                     <div class="pagination">
-                        <ul class="pagination__list"></ul>
+                        <button class="pagination__btn" data-filter="catalog-pagination-btn">
+                            показать еще
+                        </button>
+                        <ul class="pagination__list" data-filter="catalog-pagination-list"></ul>
                     </div>
                 </div>
             </section>
+        </main>
+        <main class="main" hidden id="search-page">
+            <div class="container search">
+                <div class="search__top">
+                    <input class="search__top-input search-input" type="text" placeholder="Поиск по каталогу">
+                </div>
+                <button class="search__filter buttons__btn">
+                    <p class="search__filter-text"></p>
+
+                    <span class="buttons__btn-icon">
+                        <svg class="buttons__btn-svg search__btn-svg">
+                            <use href="./images/sprite.svg#close-icon"></use>
+                        </svg>
+                    </span>
+                </button>
+                <div class="search__info">Введите свой запрос</div>
+                <div class="catalog__items" id="foundCards"></div>
+                <div class="pagination">
+                    <button class="pagination__btn" data-filter="search-pagination-btn">
+                        показать еще
+                    </button>
+                    <ul class="pagination__list" data-filter="search-pagination-list"></ul>
+                </div>
+                <button class="search__link" data-router="catalog-link">
+                    перейти в каталог
+                </button>
+            </div>
+
         </main>
         <footer class="footer">
             <div class="container footer__content">
@@ -544,10 +620,10 @@
                     <nav class="menu">
                         <ul class="menu__list">
                             <li class="menu__item">
-                                <a class="menu__link" id="main-link" href="#">Главная</a>
+                                <a class="menu__link" data-router="main-link" href="#">Главная</a>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" id="catalog-link" href="#">Каталог</a>
+                                <a class="menu__link" data-router="catalog-link" href="#">Каталог</a>
                             </li>
                             <li class="menu__item">
                                 <a class="menu__link" href="#">Обо мне</a>
@@ -591,7 +667,9 @@
                 </div>
             </div>
         </footer>
+
         <dialog class="modal">
+            <div class="modal__alert">Закрыть</div>
             <div class="modal__wrapper">
                 <div class="modal__slider"></div>
                 <div class="modal__description">
@@ -602,7 +680,22 @@
             </div>
         </dialog>
     </div>
-    <div class="background" hidden></div>
+    <div class="background">
+        <svg class="background__svg background__knife">
+            <use href="./images/sprite.svg#knife-icon"></use>
+        </svg>
+        <svg class="background__svg background__mini">
+            <use href="./images/sprite.svg#mini-icon"></use>
+        </svg>
+        <svg class="background__svg background__kitchen">
+            <use href="./images/sprite.svg#kitchen-icon"></use>
+        </svg>
+        <svg class="background__svg background__other">
+            <use href="./images/sprite.svg#other-icon"></use>
+        </svg>
+    </div>
+    <div class="loading" hidden></div>
+
     <script src="./js/slick.min.js"></script>
     <script src="./js/main.min.js"></script>
 </body>

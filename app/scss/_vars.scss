@@ -6,7 +6,7 @@
 
 %buttons {
     padding: 20px 25px;
-    @include fonts(20px, 20px);
+    @include fonts(18px, 20px);
     background: lighten(transparent, 3%);
     border: 1px solid rgba(#50735F, 4%);
     box-shadow: 1px 1px 0 #50735F, 0px 1px 6px #c3853e;
