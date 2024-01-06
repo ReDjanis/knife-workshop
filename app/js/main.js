@@ -1,5 +1,7 @@
 'use strict'
-
+let clickAddCards = false; //проверка нажатия кнопки "Показать еще"
+let objSize; //размеры текущего объекта с продуктом
+let lengthImagesBeforeDisplay = 0; //длина массива с картинками
 // фон загрузки страницы
 const divBackground = document.querySelector('.background');
 // 
@@ -79,16 +81,18 @@ let searchInfo = document.querySelector('.search__info');
 let searchTextFilter = document.querySelector('.search__filter-text');
 let searchBtnFilter = document.querySelector('.search__filter');
 // загрузка карточек завершилась
-let loadFinished = false,
-  canUpdate = false;
+// let loadFinished = false,
+let canUpdate = false;
 // -------------------------------------------------------------------------------------
 // NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW 
 // массив размеров картинок
 let arrSizes = [];
-let promise = new Promise((resolve, reject) => {
 
-  products.forEach((elem) => {
-    let arrayElem = [];
+let promise = new Promise((resolve, reject) => {
+  let arrayElem;
+  products.forEach((elem, index) => {
+
+    arrayElem = [];
     arrayElem.push(elem.id);
     arrSizes.push(arrayElem);
 
@@ -104,7 +108,7 @@ let promise = new Promise((resolve, reject) => {
         object.height = 205;
         object.size = 'big';
       }
-      arrayElem.push(object);
+      arrSizes[index].push(object);
     })
     img.src = elem.src_1;
 
@@ -116,19 +120,22 @@ let promise = new Promise((resolve, reject) => {
       }
     }, 1000)
   })
+
 })
 
 promise.then((response) => {
   displayCards(arrCardsPerPage, catalogItems, response);
+  showModalWindow();
   displayPagination(products, cards, catalogItems, nameCatalog);
   setDisplayBtnAddCards();
+
   if (activeSearchPage) {
     paginationListElemSearch.innerHTML = "";
     paginationBtnAddCardsSearch.style.display = "none";
   }
 })
 
-// событие клика на картинках в галерее
+// событие клика на картинках на главной странице
 const imagesMainPage = document.querySelectorAll('.gallery__img, .gallery__img_big, .benefits__img');
 imagesMainPage.forEach(item => {
   item.addEventListener('click', (event) => {
@@ -161,6 +168,7 @@ inputSearch.forEach(el => {
     catalogPage.hidden = true;
     searchPage.hidden = false;
     sessionStorage.setItem('activePage', 'searchPage');
+    clickAddCards = false;
     divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
     divLoad.style.display = "block";
 
@@ -205,7 +213,9 @@ inputSearch.forEach(el => {
       searchInfo.textContent = "";
       currentPageSearch = 1;
       arrFoundCardsPerPage = getArrCardsPerPage(arrFoundCards, cards, currentPageSearch);
+
       displayCards(arrFoundCardsPerPage, searchCards);
+      showModalWindow();
 
       let currentItemLi = document.querySelector('.pagination__item_active');
       if (currentItemLi) {
@@ -226,8 +236,9 @@ inputSearch.forEach(el => {
 
 // -------------------------
 
-// клик для кнопки "Показать еще"
+// клик для кнопки "Показать еще" в каталоге
 paginationBtnAddCardsCatalog.addEventListener('click', () => {
+  clickAddCards = true;
   divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
   divLoad.style.display = "block";
   let prevItemLi = document.querySelector('.pagination__item_active');
@@ -242,14 +253,19 @@ paginationBtnAddCardsCatalog.addEventListener('click', () => {
   if (checkingForFilter) {
     let arrayCardsFilterPerPage = getArrCardsPerPage(arrFilteredCards, cards, currentPageAlternative);
     displayCards(arrayCardsFilterPerPage, catalogItems);
+    showModalWindow();
   } else {
     currentPage = +currentItemLi.textContent;
     arrCardsPerPage = getArrCardsPerPage(products, cards, currentPage);
     let arrayCardsPerPage = getArrCardsPerPage(products, cards, currentPageAlternative);
+
     displayCards(arrayCardsPerPage, catalogItems);
+    showModalWindow();
   }
 })
+// клик для кнопки "Показать еще" в поиске
 paginationBtnAddCardsSearch.addEventListener('click', () => {
+  clickAddCards = true;
   divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
   divLoad.style.display = "block";
   let prevItemLi = document.querySelector('.pagination__item_active');
@@ -262,7 +278,9 @@ paginationBtnAddCardsSearch.addEventListener('click', () => {
   currentPageAlternative = +currentItemLi.textContent;
 
   let arrayFoundCardsPerPage = getArrCardsPerPage(arrFoundCards, cards, currentPageAlternative);
+
   displayCards(arrayFoundCardsPerPage, searchCards);
+  showModalWindow();
 })
 
 // аккордеон на главной странице
@@ -281,6 +299,10 @@ details.forEach((targetDetail) => {
 // переключение между тегами main
 mainBtn.forEach(item => {
   item.addEventListener('click', () => {
+    if (sessionStorage.getItem('activePage') === 'searchPage') {
+      let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
+      catalogItemsPerPage.forEach(el => el.remove());
+    }
     mainPage.hidden = false;
     catalogPage.hidden = true;
     // mainPage.style.display = "block";
@@ -289,21 +311,27 @@ mainBtn.forEach(item => {
     sessionStorage.setItem('activePage', 'mainPage');
     mainBtn.forEach(item => item.style.borderBottom = '2px solid #f4f3f0');
     catalogBtn.forEach(item => item.style.borderBottom = 'none');
-
+    clickAddCards = false;
   });
 })
 catalogBtn.forEach(elem => {
   elem.addEventListener('click', () => {
+
+    if (sessionStorage.getItem('activePage') === 'searchPage') {
+      let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
+      catalogItemsPerPage.forEach(el => el.remove());
+    }
+
     mainPage.hidden = true;
     catalogPage.hidden = false;
     // mainPage.style.display = "none";
     // catalogPage.style.display = "block";
     searchPage.hidden = true;
-
     sessionStorage.setItem('activePage', 'catalogPage');
 
     mainBtn.forEach(item => item.style.borderBottom = 'none');
     catalogBtn.forEach(item => item.style.borderBottom = '2px solid #f4f3f0');
+    clickAddCards = false;
 
     if (searchBoolean) {
       activeSearchPage = false;
@@ -321,12 +349,15 @@ catalogBtn.forEach(elem => {
       }
       currentPage = 1;
       arrCardsPerPage = getArrCardsPerPage(products, cards, currentPage);
+     
       displayCards(arrCardsPerPage, catalogItems);
+      showModalWindow();
+
       let currentItemLi = document.querySelector('.pagination__item_active');
       if (currentItemLi) {
-
         currentItemLi.classList.remove('pagination__item_active');
       }
+
       displayPagination(products, cards, catalogItems, nameCatalog);
       setDisplayBtnAddCards();
 
@@ -343,16 +374,36 @@ catalogBtn.forEach(elem => {
 })
 
 // событие клика для слайдера, открытие модального окна
-function showModalWindow(arrayImages, arrayPerPage) {
-  Array.from(arrayImages).forEach(function (i) {
+function showModalWindow() {
+  if (clickAddCards) {
+    lengthImagesBeforeDisplay = imagesCards.length;
+  } else {
+    lengthImagesBeforeDisplay = 0;
+  }
+  imagesCards = document.querySelectorAll('.catalog__item-img');
+  let arrayImages = Array.from(imagesCards);
+
+  if (lengthImagesBeforeDisplay !== 0) {
+    arrayImages.splice(0, lengthImagesBeforeDisplay);
+  }
+
+  arrayImages.forEach(function (i) {
     i.addEventListener('click', () => {
-      console.log('мы сюда зашли вообще ?');
-      let numProd = i.dataset.object.replace(/[^0-9]/g, '');
+      let indexCurrentObj;
+      let idObj = i.dataset.object.slice(5);
       let numImg = i.dataset.numimg.replace(/[^0-9]/g, '');
 
-      getPathsToImg(arrayPerPage[numProd]);
+      for (let index = 0; index < products.length; index++) {
+        const element = products[index];
+        if (element.id === idObj) {
+          indexCurrentObj = index;
+          break;
+        }
+      }
+      getPathsToImg(products[indexCurrentObj]);
 
       for (let i = 0; i < arrSrcAvif.length; i++) {
+
         modalSlider.insertAdjacentHTML('beforeend', `
             <div class="modal__item">
                 <picture>
@@ -362,24 +413,26 @@ function showModalWindow(arrayImages, arrayPerPage) {
                 </picture>
             </div>`);
       }
-      $('.modal__slider').slick({
-        dots: true,
-        speed: 500,
-        cssEase: 'linear',
-        adaptiveHeight: true,
-        initialSlide: +numImg,
-        adaptiveWidth: true,
-      });
+      if (!modalSlider.classList.contains('slick-initialized')) {
+        $('.modal__slider').slick({
+          dots: true,
+          speed: 500,
+          cssEase: 'linear',
+          adaptiveHeight: true,
+          initialSlide: +numImg,
+          adaptiveWidth: true,
+        });
+      }
       let arrTexts = [];
-      for (let key in arrayPerPage[numProd]) {
-        if (key.startsWith('description') && arrayPerPage[numProd][key] !== '') {
-          arrTexts.push(arrayPerPage[numProd][key]);
+      for (let key in products[indexCurrentObj]) {
+        if (key.startsWith('description') && products[indexCurrentObj][key] !== '') {
+          arrTexts.push(products[indexCurrentObj][key]);
         }
       }
       for (let i = 0; i < arrTexts.length; i++) {
         modalBtn.insertAdjacentHTML('beforebegin', `<p class="modal__text">${arrTexts[i]}</p>`);
       }
-      modalTitle.textContent = `${arrayPerPage[numProd].title}`;
+      modalTitle.textContent = `${products[indexCurrentObj].title}`;
       document.body.classList.add("scroll-lock");
       modalWindow.showModal();
       $('.modal__slider').slick('refresh');
@@ -430,119 +483,97 @@ function getArrCardsPerPage(arr, cardsPerPage, page) {
   return arr.slice(start, end);
 }
 
+function getSizeImage(arrSizeFull, objSizeOneCard) {
+  for (let j = 0; j < arrSizeFull.length; j++) {
+    let element = arrSizeFull[j][0].indexOf(objSizeOneCard.id);
+    if (element != -1) {
+      objSize = arrSizeFull[j][1];
+      break;
+    }
+  }
+  return objSize;
+}
 
-function displayCards(arr, divOnPage, array = arrSizes) {
+function loadCards(arr, divOnPage, arrayImgSize = arrSizes) {
   $('.slider').slick('unslick');
-  loadFinished = false;
   canUpdate = false;
-  let arrCopy = array.slice();
-  arr.forEach((item, index) => {
-    let objSize;
+  let arrCopy = arrayImgSize.slice();
 
-    for (let j = 0; j < arrCopy.length; j++) {
-      let element = arrCopy[j][0].indexOf(item.id);
-      if (element != -1) {
-        objSize = arrCopy[j][1];
-        arrCopy.splice(j, 1);
-        break;
+  return new Promise((resolve, reject) => {
+    arr.forEach(item => {
+      let result = getSizeImage(arrCopy, item);
+
+      let catalogItem = document.createElement('div');
+
+      if (result.size === 'small') {
+        catalogItem.className = 'catalog__item catalog__item_small';
+      } else {
+        catalogItem.className = 'catalog__item catalog__item_big';
       }
-    }
 
-    let catalogItem = document.createElement('div');
+      catalogItem.id = `catalog__item-${item.id}`;
+      divOnPage.append(catalogItem);
 
-    if (objSize.size === 'small') {
-      catalogItem.className = 'catalog__item catalog__item_small';
-    } else {
-      catalogItem.className = 'catalog__item catalog__item_big';
-    }
+      catalogItem.insertAdjacentHTML('beforeend', `<div class="slider slider-${item.id}"></div>`);
+      let slider = document.querySelector(`.slider-${item.id}`);
 
-    catalogItem.id = `catalog__item-${item.id}`;
-    divOnPage.append(catalogItem);
-
-    catalogItem.insertAdjacentHTML('beforeend', `<div class="slider slider-${item.id}"></div>`);
-    let slider = document.querySelector(`.slider-${item.id}`);
-    let promiseLoad = new Promise((resolve, reject) => {
       getPathsToImg(item);
 
       slider.insertAdjacentHTML('beforeend', `
-            <div class="slider__item slider__item-${item.id}">
-                <picture>
-                    <source srcset=${arrSrcAvif[0]} type="image/avif">
-                    <source srcset=${arrSrcWebp[0]} type="image/webp">
-                    <img class="catalog__item-img src_1" data-object="elem-${index}" data-numimg="number-image-0" src="${arrSrcJpg[0]}" alt="${item.alt}" width="${objSize.width}" height="${objSize.height}">
-                </picture>
-            </div>
-          `);
+                <div class="slider__item slider__item-${item.id}">
+                    <picture>
+                        <source srcset=${arrSrcAvif[0]} type="image/avif">
+                        <source srcset=${arrSrcWebp[0]} type="image/webp">
+                        <img class="catalog__item-img src_1" data-object="elem-${item.id}" data-numimg="number-image-0" src="${arrSrcJpg[0]}" alt="${item.alt}" width="${result.width}" height="${result.height}">
+                    </picture>
+                </div>
+              `);
       for (let i = 1; i < arrSrcAvif.length; i++) {
         slider.insertAdjacentHTML('beforeend', `
-            <div class="slider__item slider__item-${item.id}">
-                <picture>
-                    <source srcset=${arrSrcAvif[i]} type="image/avif">
-                    <source srcset=${arrSrcWebp[i]} type="image/webp">
-                    <img class="catalog__item-img src_${i + 1}" data-object="elem-${index}" data-numimg="number-image-${i}" data-lazy="${arrSrcJpg[i]}" alt="" width="${objSize.width}" height="${objSize.height}">
-                </picture>
-            </div>
-          `);
+                <div class="slider__item slider__item-${item.id}">
+                    <picture>
+                        <source srcset=${arrSrcAvif[i]} type="image/avif">
+                        <source srcset=${arrSrcWebp[i]} type="image/webp">
+                        <img class="catalog__item-img src_${i + 1}" data-object="elem-${item.id}" data-numimg="number-image-${i}" data-lazy="${arrSrcJpg[i]}" alt="" width="${result.width}" height="${result.height}">
+                    </picture>
+                </div>
+              `);
       }
       catalogItem.insertAdjacentHTML('beforeend', `
-            <div class="catalog__item-desc">
-                <div class="catalog__item-text">
-                    <h3 class="catalog__item-title">${item.title}</h3>
-                    <div class="catalog__item-subtitle">${item.subtitle}</div>
+                <div class="catalog__item-desc">
+                    <div class="catalog__item-text">
+                        <h3 class="catalog__item-title">${item.title}</h3>
+                        <div class="catalog__item-subtitle">${item.subtitle}</div>
+                    </div>
+                    <button class="catalog__item-btn">Заказать</button>
                 </div>
-                <button class="catalog__item-btn">Заказать</button>
-            </div>
-          `);
-
-      let count = 0;
-
-      let sliderItem = document.querySelectorAll(`.slider__item-${item.id}`);
-
-      sliderItem.forEach(i => {
-        if (i.closest(`.slider-${item.id}`)) {
-          count++;
-        }
-      })
-
-      if (count === arrSrcJpg.length) {
-        resolve();
-      }
-    });
-
-    promiseLoad.then(() => {
-      loadFinished = true;
+              `);
     })
 
+    resolve();
   })
-
-  const interval = setInterval(() => {
-    if (loadFinished) {
-      clearInterval(interval);
-
-      $('.slider').slick({
-        arrows: false,
-        dots: true,
-        speed: 500,
-        cssEase: 'linear',
-      });
-      $('.slider').slick('refresh');
-      canUpdate = true;
-      let catalogItemAll = document.querySelectorAll('.catalog__item');
-      catalogItemAll.forEach(item => {
-        item.style.display = "flex";
-      })
-      divBackground.style.display = "none";
-      divLoad.style.display = "none";
-      divLoad.innerHTML = "";
-      imagesCards = document.querySelectorAll('.catalog__item-img');
-      showModalWindow(imagesCards, arr);
-    }
-  }, 1000)
-
-
-
 }
 
+function displayCards(arrayPerPage, divToInsert, arraySizes) {
+
+  loadCards(arrayPerPage, divToInsert, arraySizes).then(() => {
+    $('.slider').slick({
+      arrows: false,
+      dots: true,
+      speed: 500,
+      cssEase: 'linear',
+    });
+    $('.slider').slick('refresh');
+    canUpdate = true;
+    let catalogItemAll = document.querySelectorAll('.catalog__item');
+    catalogItemAll.forEach(item => {
+      item.style.display = "flex";
+    })
+    divBackground.style.display = "none";
+    divLoad.style.display = "none";
+    divLoad.innerHTML = "";
+  })
+}
 
 function displayPagination(arr, cardsPerPage, divOnPage, name) {
 
@@ -581,13 +612,13 @@ function displayPaginationBtn(page, array, div, title) {
       liElem.classList.add('pagination__item_active');
     }
   } else {
-
     if (currentPageSearch == page) {
       liElem.classList.add('pagination__item_active');
     }
   }
 
   liElem.addEventListener('click', () => {
+    clickAddCards = false;
     divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
     divLoad.style.display = "block";
     if (!activeSearchPage) {
@@ -599,15 +630,16 @@ function displayPaginationBtn(page, array, div, title) {
     }
 
     div.innerHTML = "";
+
     displayCards(arrCardsPerPage, div);
+    showModalWindow();
+
     let currentItemLi = document.querySelector('.pagination__item_active');
     currentItemLi.classList.remove('pagination__item_active');
-
     liElem.classList.add('pagination__item_active');
 
     setDisplayBtnAddCards();
   })
-
   return liElem;
 }
 
@@ -622,15 +654,18 @@ function displayPaginationBtnWithFilter(page, array, div) {
   }
 
   liElem.addEventListener('click', () => {
+    clickAddCards = false;
     divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
     divLoad.style.display = "block";
     currentPageWithFilter = page;
     arrCardsFilterPerPage = getArrCardsPerPage(array, cards, currentPageWithFilter);
     div.innerHTML = "";
+   
     displayCards(arrCardsFilterPerPage, div);
+    showModalWindow();
+
     let currentItemLi = document.querySelector('.pagination__item_active');
     currentItemLi.classList.remove('pagination__item_active');
-
     liElem.classList.add('pagination__item_active');
 
     setDisplayBtnAddCards();
@@ -642,7 +677,6 @@ function displayPaginationBtnWithFilter(page, array, div) {
 // вкл/выкл кнопки "Показать еще"
 function setDisplayBtnAddCards() {
   if (!activeSearchPage) {
-
     if (document.querySelector('.pagination__item_active').nextElementSibling !== null) {
       paginationBtnAddCardsCatalog.style.display = 'block';
     } else {
@@ -691,16 +725,15 @@ buttons.forEach(item => {
   } else if (item.getAttribute('class').includes('catalog')) {
 
     item.addEventListener('click', (event) => {
+      clickAddCards = false;
       divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
       divLoad.style.display = "block";
       arrFilteredCards = [];
 
       if ((targetBtn !== event.target) && (btnClose !== event.target)) {
-
         checkingForFilter = true;
         let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
         catalogItemsPerPage.forEach(el => el.remove());
-
 
         products.forEach(el => {
           if (el.filter.indexOf(item.dataset.filter) != -1) {
@@ -709,11 +742,15 @@ buttons.forEach(item => {
         })
         if (arrFilteredCards.length <= cards) {
           Array.from(currentPaginationCatalog).forEach(item => item.remove());
+      
           displayCards(arrFilteredCards, catalogItems);
+          showModalWindow();
           paginationBtnAddCardsCatalog.style.display = 'none';
         } else {
           arrCardsFilterPerPage = getArrCardsPerPage(arrFilteredCards, cards, currentPageWithFilter);
+
           displayCards(arrCardsFilterPerPage, catalogItems);
+          showModalWindow();
           displayPagination(arrFilteredCards, cards, catalogItems, nameCatalog);
           paginationBtnAddCardsCatalog.style.display = 'block';
         }
@@ -743,14 +780,13 @@ buttons.forEach(item => {
         currentPageWithFilter = 1;
 
         displayCards(arrCardsPerPage, catalogItems);
-
+        showModalWindow();
         item.classList.remove('catalog__btn_active');
         item.children[0].remove();
         targetBtn = null;
         btnClose = null;
 
         displayPagination(products, cards, catalogItems, nameCatalog);
-
         setDisplayBtnAddCards();
       }
     })

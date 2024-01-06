@@ -550,7 +550,6 @@
 
     &__top {
         padding: 16px 20px;
-        box-shadow: 0px 0px 13px 1px #9f9696;
     }
 
     &__top-title {
@@ -563,8 +562,19 @@
     &__buttons {
         justify-content: flex-end;
         column-gap: 30px;
-        padding: 60px 0 30px 0;
+        padding: 40px 0 30px 0;
+        margin-top: 10px;
         position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            background-color: #2a3730;
+            top: 0;
+            right: 0;
+            width: 1150px;
+            height: 1px;
+        }
     }
 
     &__btn {
@@ -637,6 +647,8 @@
         grid-row: span 1;
         flex-direction: row;
         column-gap: 10px;
+        max-height: 253px;
+        height: 100%;
 
         img {
             height: 205px;
