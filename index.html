@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ножевая мастерская А.Трусова</title>
     <link rel="stylesheet" href="css/style.min.css">
-    <link  rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 </head>
 
 <body>
@@ -35,13 +35,13 @@
         
                         <li class="menu__item">
         
-                            <a class="menu__link" href="#">Обо мне</a>
+                            <a class="menu__link" data-router="about-link" href="#">Обо мне</a>
         
                         </li>
         
                         <li class="menu__item">
         
-                            <a class="menu__link" href="#">Доставка</a>
+                            <a class="menu__link" data-router="delivery-link" href="#">Доставка</a>
         
                         </li>
         
@@ -51,26 +51,68 @@
                 <div class="header__right-inner">
                     <div class="header__search">
                         <input class="header__search-input search-input" type="text" placeholder="Поиск по каталогу">
+                        <button class="header__search-btn">
+                            <svg class="header__search-svg">
+                                <use href="./images/sprite.svg#search-white-icon"></use>
+                            </svg>
+                        </button>
                     </div>
                     <div class="contacts">
-                        <a class="contacts__social-link" href="">
+                        <a class="contacts__social-link" href="https://t.me/KapitanKapitoshka" target="_blank">
                             <svg class="contacts__social-svg telegram">
                                 <use href="./images/sprite.svg#telegram-icon"></use>
                             </svg>
                         </a>
-                        <a class="contacts__social-link" href="">
+                        <a class="contacts__social-link" href="https://vk.com/kovkaknife" target="_blank">
                             <svg class="contacts__social-svg vk">
                                 <use href="./images/sprite.svg#vk-icon"></use>
                             </svg>
                         </a>
-                        <a class="contacts__email-link" href="">
+                        <a class="contacts__email-link" href="mailto:DamaskKnife@yandex.ru">
                             <svg class="contacts__email-svg email">
                                 <use href="./images/sprite.svg#email-icon"></use>
                             </svg>
-                            DamaskKnife@yandex.ru
+                            <span class="contacts__text">
+                                DamaskKnife@yandex.ru
+                            </span>
                         </a>
                     </div>
                 </div>
+                <div class="burger">
+                    <input type="checkbox" id="check-menu">
+                    <label for="check-menu" class="burger__label"></label>
+        
+                    <div class="burger__line burger__line_position-1"></div>
+                    <div class="burger__line burger__line_position-2"></div>
+                    <div class="burger__line burger__line_position-3"></div>
+                    <div class="burger__line burger__line_position-4"></div>
+        
+        
+                    <nav class="burger__nav">
+                        <a class="burger__item" href="#" data-router="main-link">Главная</a>
+                        <a class="burger__item" href="#" data-router="catalog-link">Каталог</a>
+                        <a class="burger__item" href="#" data-router="about-link">Обо мне</a>
+                        <a class="burger__item" href="#" data-router="delivery-link">Доставка</a>
+                        <a class="burger__item" href="https://t.me/KapitanKapitoshka" target="_blank">
+                            Телеграм
+                        </a>
+                        <a class="burger__item" href="https://vk.com/kovkaknife" target="_blank">
+                            Вконтакте
+                        </a>
+                        <a class="burger__item" href="mailto:DamaskKnife@yandex.ru">
+                            DamaskKnife@yandex.ru
+                        </a>
+                        <a class="burger__item" href="#">
+                            <svg class="burger__item-svg">
+                                <use href="./images/sprite.svg#search-white-icon"></use>
+                            </svg>
+                            Поиск по каталогу
+                        </a>
+        
+                    </nav>
+        
+                </div>
+        
             </div>
         </header>
         <main class="main" id="main-page">
@@ -84,11 +126,11 @@
                     </h1>
                     <div class="present__info">
                         <p class="present__description">
-                            Изготовление на заказ ножей различного назначения, топоров, топориков и прочее. </br>
+                            Изготовление на заказ ножей различного назначения, топоров, топориков и проч. </br>
                             Классические природные материалы.</br>
                             Полностью ручная работа
                         </p>
-                        <button class="present__btn">Связаться со мной</button>
+                        <button class="present__btn btn-feedback">Связаться со мной</button>
                     </div>
                 </div>
             </section>
@@ -131,7 +173,7 @@
                         </div>
                     </div>
                     <div class="welcome__button">
-                        <button class="welcome__btn">Больше обо мне</button>
+                        <a class="welcome__btn" data-router="about-link" href="#">Больше обо мне</a>
                     </div>
                 </div>
             </section>
@@ -550,8 +592,8 @@
 
                 <div class="container catalog__content">
                     <div class="catalog__wrp">
-                        <div class="catalog__top">
-                            <h2 class="catalog__top-title">
+                        <div class="top">
+                            <h2 class="top-title">
                                 Мои работы
                             </h2>
                         </div>
@@ -614,6 +656,184 @@
             </div>
 
         </main>
+        <main class="main" id="about-page" hidden>
+            <section class="about">
+                <div class="container about__content">
+                    <div class="top">
+                        <h2 class="top-title">
+                            Обо мне
+                        </h2>
+                    </div>
+                    <div class="about__wrp">
+                        <div class="about__history">
+
+                            <p class="about__text">
+                                Свой первый нож я сделал еще будучи школьником. На 
+                                накопленные карманные деньги купил маленький точильный станок и кусочек нержавеющей
+                                стали на
+                                местном строительном рынке. Кое-как разместившись на балконе, пытался делать свой первый
+                                нож: на одной табуретке - я, на другой - моя мастерская.
+                            </p>
+
+                            <p class="about__text">
+                                Честно говоря, я не помню, откуда у меня появился интерес к ножам. Возможно, повлияли
+                                выезды на природу с родителями, компьютерные игры или трансформация интереса к оружию
+                                разных стран мира. Но в том или ином виде ножи сопровождали меня всегда. Согласитесь,
+                                будучи ребенком, иметь возможность не просто сломать палку, а срезать и обработать её
+                                самостоятельно, даёт куда больше перспектив для творчества и фантазии.
+                            </p>
+                            <p class="about__text">
+                                Лет в двенадцать я, наконец, обзавёлся серьёзным ножом. Его мне подарили родители:
+                                ореховая ручка, ножны с тиснением, зеркальная полировка и гравировка: "Саша! Будь
+                                закалён, как клинок". Настоящий шкуросъёмный нож! Я, конечно, обрадовался. И с тех пор с
+                                ним не расставался - носил с собой по поводу и без повода, да и сейчас продолжаю. Но был
+                                еще один: маленький швейцарский складной нож с деревянной ручкой, его купила мама. Вот
+                                он сопровождает меня по сей день в качестве незаменимого инструмента. Получается, что
+                                один нож - символический клинок для души, другой - исключительный помощник.
+                            </p>
+                            <p class="about__text">
+                                Сначала я не замечал у себя любви к ручному труду - я не мастерил, не вырезал что-то
+                                лобзиком, не собирал авиамодели. Но умел пользоваться инструментом, особенно молотком.
+                                Первый раз я попробовал ковать меч из гвоздя для игрушечного человечка. Грел его на
+                                газовой плите и отбивал молотком на ювелирной наковальне, которая по сей день служит мне
+                                верой и правдой для работы с мелочью.
+                            </p>
+                            <p class="about__text">
+                                У меня не было учителей, зато имелось помещение для мастерской - я был предоставлен сам
+                                себе. Но обучаться тоже нужно уметь. "Чтобы задать вопрос, надо знать половину ответа".
+                                Увы, я не знал, что спрашивать. А на те вопросы, которые у меня появлялись, ответов не
+                                находил даже в интернете. Какого диаметра сверлить отверстия для поддува? А как разжечь
+                                каменный уголь? И насколько сильным должен быть поток воздуха? Учиться пришлось методом
+                                проб и ошибок, а понимание пришло только с опытом.
+                            </p>
+                            <p class="about__text">
+                                Первое, что я попытался сделать - это сварить дамасскую сталь. Я много читал про булат и
+                                про варку дамаска, и мне казалось, что в целом это не так сложно. И я это сделал!
+                                Сколько радости я испытал! Это с опытом я начал воспринимать понятие "дамасская сталь"
+                                как обозначение технологии, но тогда у меня получилось.</br>
+                                Формально, я учился не от
+                                простого к сложному, а наоборот, и только потом понял, с чего следует начать. Таким
+                                образом сформировались основные направления для изучения: металлургия, обработка металла
+                                давлением и история.
+                            </p>
+                            <p class="about__text">
+                                На сегодняшний день я уже более 10 лет занимаюсь ковкой клинков и изготовлением ножей,
+                                умею варить дамасскую сталь, работаю с кожей и деревом, владею авторским методом
+                                обработки древесины.
+                            </p>
+                            <p class="about__text">
+                                Люблю свое дело.
+                            </p>
+                        </div>
+                        <div class="about__photo">
+                            <picture class="about__picture">
+                                <source srcset="./images/content/about/about-4.avif" type="image/avif">
+                                <source srcset="./images/content/about/about-4.webp" type="image/webp">
+                                <img class="about__img about__img_hover" src="./images/content/about/about-4.jpg"
+                                    alt="Заготовка будущего клинка.">
+                            </picture>
+
+                            <picture class="about__picture">
+                                <source srcset="./images/content/about/about-3.avif" type="image/avif">
+                                <source srcset="./images/content/about/about-3.webp" type="image/webp">
+                                <img class="about__img about__img_hover" src="./images/content/about/about-3.jpg"
+                                    alt="Мини-наковальня.">
+                            </picture>
+                            <picture class="about__picture">
+                                <source srcset="./images/content/about/about-2.avif" type="image/avif">
+                                <source srcset="./images/content/about/about-2.webp" type="image/webp">
+                                <img class="about__img about__img_hover" src="./images/content/about/about-2.jpg"
+                                    alt="Нож с зеркальной полировкой и гравировкой: Саша! Будь закален, как клинок.">
+                            </picture>
+                            <picture class="about__picture">
+                                <source srcset="./images/content/about/about-5.avif" type="image/avif">
+                                <source srcset="./images/content/about/about-5.webp" type="image/webp">
+                                <img class="about__img about__img_hover" src="./images/content/about/about-5.jpg"
+                                    alt="">
+                            </picture>
+                            <picture class="about__picture">
+                                <source srcset="./images/content/about/about-6.avif" type="image/avif">
+                                <source srcset="./images/content/about/about-6.webp" type="image/webp">
+                                <img class="about__img about__img_hover" src="./images/content/about/about-6.jpg"
+                                    alt="">
+                            </picture>
+                            <!-- <picture>
+                                <source srcset="./images/content/20.avif" type="image/avif">
+                                <source srcset="./images/content/20.webp" type="image/webp">
+                                <img class="about__img" src="./images/content/20.jpg" alt="">
+                            </picture> -->
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        <main class="main" id="delivery-page" hidden>
+            <section class="delivery">
+                <div class="container delivery__content">
+                    <div class="top">
+                        <h2 class="top-title">
+                            Доставка и оплата
+                        </h2>
+                    </div>
+                    <div class="delivery__info">
+                        <div class="delivery__image">
+                            <picture>
+                                <source srcset="./images/content/delivery.avif" type="image/avif">
+                                <source srcset="./images/content/delivery.webp" type="image/webp">
+                                <img class="delivery__img" src="./images/content/delivery.jpg" alt="">
+                            </picture>
+                        </div>
+                        <div class="delivery__description">
+                            <p class="delivery__text">
+                                Данный сайт носит исключительно информационный характер. Чтобы сделать заказ или просто задать вопрос, необходимо написать мне в любую из соц.сетей (
+                                    <a class="delivery__link" href="https://t.me/KapitanKapitoshka" target="_blank">
+                                        телеграм 
+                                    </a>
+                                    , 
+                                    <a class="delivery__link" href="https://vk.com/kovkaknife" target="_blank">
+                                        вконтакте 
+                                    </a>
+                                ) или на почту (
+                                    <a class="delivery__link" href="mailto:DamaskKnife@yandex.ru">
+                                        DamaskKnife@yandex.ru
+                                    </a>
+                                ).
+                            </p>
+                            <h3 class="delivery__subtitle">
+                                При заказе из города Липецк
+                            </h3>
+                            <p class="delivery__text">
+                                Доставка в пределах города не осуществляется, готовое изделие нужно будет забирать лично
+                                (ориентировочно: 14 микрорайон, ост. Каменный лог).</br>
+                                При заказе осуществляется предоплата в размере 50% от полной стоимости изделия.
+                                Оставшуюся сумму необходимо будет оплатить в момент передачи заказа.
+                            </p>
+
+                            <h3 class="delivery__subtitle">
+                                При заказе из другого города России
+                            </h3>
+
+                            <p class="delivery__text">
+                                Доставка осуществляется почтой России за счет покупателя. </br>
+                                При заказе осуществляется предоплата в размере 50% от полной стоимости изделия. По
+                                завершении работы я скидываю фото готового изделия. После этого необходимо будет
+                                оплатить оставшиеся 50%, а также стоимость доставки. После получения всей стоимости
+                                товар будет отправлен покупателю.
+
+                            </p>
+                            <p class="delivery__text_bold">
+                                Оплата производится на карту Сбербанка по номеру тел +7 (906) 686-72-49 или по номеру
+                                карты 3213 3213 3213 3213
+                                на имя Александра Вячеславовича Т.
+                            </p>
+                        </div>
+                    </div>
+                    <button class="delivery__btn btn-feedback">Связаться со мной</button>
+                </div>
+
+            </section>
+        </main>
         <footer class="footer">
             <div class="container footer__content">
                 <div class="footer__info">
@@ -626,30 +846,32 @@
                                 <a class="menu__link" data-router="catalog-link" href="#">Каталог</a>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" href="#">Обо мне</a>
+                                <a class="menu__link" data-router="about-link" href="#">Обо мне</a>
                             </li>
                             <li class="menu__item">
-                                <a class="menu__link" href="#">Доставка</a>
+                                <a class="menu__link" data-router="delivery-link" href="#">Доставка</a>
                             </li>
                         </ul>
                     </nav>
                     <div class="footer__communication">
                         <div class="contacts">
-                            <a class="contacts__social-link" href="">
+                            <a class="contacts__social-link" href="https://t.me/KapitanKapitoshka" target="_blank">
                                 <svg class="contacts__social-svg telegram">
                                     <use href="./images/sprite.svg#telegram-icon"></use>
                                 </svg>
                             </a>
-                            <a class="contacts__social-link" href="">
+                            <a class="contacts__social-link" href="https://vk.com/kovkaknife" target="_blank">
                                 <svg class="contacts__social-svg vk">
                                     <use href="./images/sprite.svg#vk-icon"></use>
                                 </svg>
                             </a>
-                            <a class="contacts__email-link" href="">
+                            <a class="contacts__email-link" href="mailto:DamaskKnife@yandex.ru">
                                 <svg class="contacts__email-svg email">
                                     <use href="./images/sprite.svg#email-icon"></use>
                                 </svg>
-                                DamaskKnife@yandex.ru
+                                <span class="contacts__text">
+                                    DamaskKnife@yandex.ru
+                                </span>
                             </a>
                         </div>
                         <div class="footer__location">
@@ -669,7 +891,7 @@
         </footer>
 
         <dialog class="modal">
-            <div class="modal__alert">Закрыть</div>
+            <div class="modal__alert btn__close">Закрыть</div>
             <div class="modal__wrapper">
                 <div class="modal__slider"></div>
                 <div class="modal__description">
@@ -678,6 +900,90 @@
                     <button class="modal__btn">Заказать</button>
                 </div>
             </div>
+        </dialog>
+
+        <dialog class="modal-form">
+            <div class="modal-form__alert btn__close">Закрыть</div>
+            <form class="form" name="form" action="">
+                <div class="form__close">
+                    <button class="form__button" type="button">
+                        <svg class="form__btn">
+                            <use href="./images/sprite.svg#close-icon"></use>
+                        </svg>
+                    </button>
+                </div>
+                <h2 class="form__title">Отправить заявку</h2>
+              
+                <div class="form__content">
+                    <label class="form__item">
+                        <div class="form__name">
+                            Введите имя *
+                        </div>
+                        <input class="form__input" type="text" name="nameUser">
+                    </label>
+
+                    <div class="form__text">
+                        <div class="form__text-empty"></div>
+                        <div class="form__text-message" data-group="nameUser">
+                            обязательно для заполнения
+                        </div>
+                    </div>
+
+                    <label class="form__item">
+                        <div class="form__name">
+                            Введите email *
+                        </div>
+                        <input class="form__input" type="text" name="email">
+                    </label>
+
+                    <div class="form__text">
+                        <div class="form__text-empty"></div>
+                        <div class="form__text-message" data-group="email">
+                            обязательно для заполнения
+                        </div>
+                    </div>
+                    <label class="form__item">
+                        <div class="form__name">
+                            Ваше сообщение *
+                        </div>
+                        <textarea class="form__textarea" name="message" id=""></textarea>
+                    </label>
+
+                    <div class="form__text">
+                        <div class="form__text-empty"></div>
+                        <div class="form__text-message" data-group="message">
+                            обязательно для заполнения
+                        </div>
+                    </div>
+                    <div class="form__item">
+                        <div class="form__text-empty"></div>
+                        <div class="form__current-product"></div>
+                    </div>
+
+                    <div class="form__submit">
+                        <button class="form__submit-btn">
+                            Отправить
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <img class="modal-form__logo" src="./images/sprite.svg#logо" alt="">
+
+        </dialog>
+
+        <dialog class="modal-message">
+            <p class="modal-message__text">
+                Ваше сообщение отправлено!
+            </p>
+            <button class="modal-message__btn">
+                Закрыть
+            </button>
+        </dialog>
+
+        <dialog class="modal-image">
+            <div class="modal-image__alert btn__close">Закрыть</div>
+            <div class="modal-image__wrapper"></div>
         </dialog>
     </div>
     <div class="background">
