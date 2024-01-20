@@ -8,8 +8,48 @@
         <div class="header__right-inner">
             <div class="header__search">
                 <input class="header__search-input search-input" type="text" placeholder="Поиск по каталогу">
+                <button class="header__search-btn">
+                    <svg class="header__search-svg">
+                        <use href="./images/sprite.svg#search-white-icon"></use>
+                    </svg>
+                </button>
             </div>
             <!--=include contacts.html -->
         </div>
+        <div class="burger">
+            <input type="checkbox" id="check-menu">
+            <label for="check-menu" class="burger__label"></label>
+
+            <div class="burger__line burger__line_position-1"></div>
+            <div class="burger__line burger__line_position-2"></div>
+            <div class="burger__line burger__line_position-3"></div>
+            <div class="burger__line burger__line_position-4"></div>
+
+
+            <nav class="burger__nav">
+                <a class="burger__item" href="#" data-router="main-link">Главная</a>
+                <a class="burger__item" href="#" data-router="catalog-link">Каталог</a>
+                <a class="burger__item" href="#" data-router="about-link">Обо мне</a>
+                <a class="burger__item" href="#" data-router="delivery-link">Доставка</a>
+                <a class="burger__item" href="https://t.me/KapitanKapitoshka" target="_blank">
+                    Телеграм
+                </a>
+                <a class="burger__item" href="https://vk.com/kovkaknife" target="_blank">
+                    Вконтакте
+                </a>
+                <a class="burger__item" href="mailto:DamaskKnife@yandex.ru">
+                    DamaskKnife@yandex.ru
+                </a>
+                <a class="burger__item" href="#">
+                    <svg class="burger__item-svg">
+                        <use href="./images/sprite.svg#search-white-icon"></use>
+                    </svg>
+                    Поиск по каталогу
+                </a>
+
+            </nav>
+
+        </div>
+
     </div>
 </header>

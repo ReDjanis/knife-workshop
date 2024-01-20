@@ -1,10 +1,8 @@
 'use strict'
-let clickAddCards = false; //проверка нажатия кнопки "Показать еще"
-let objSize; //размеры текущего объекта с продуктом
-let lengthImagesBeforeDisplay = 0; //длина массива с картинками
+
 // фон загрузки страницы
 const divBackground = document.querySelector('.background');
-// 
+// фон при загрузке карточек
 let divLoad = document.querySelector('.loading');
 let svgIconKnife = `
     <svg class="loading__svg">
@@ -23,21 +21,11 @@ let svgIconKnife = `
         <use href="./images/sprite.svg#other-icon"></use>
     </svg>`;
 let arrSvgIconLoading = [svgIconKnife, svgIconMini, svgIconKitchen, svgIconOther];
-// модальное окошко
-const modalWindow = document.querySelector('.modal');
-const modalAlert = document.querySelector('.modal__alert');
-const modalWrp = document.querySelector('.modal__wrapper');
-const modalTitle = document.querySelector('.modal__title');
-const modalBtn = document.querySelector('.modal__btn');
-let modalSlider = document.querySelector('.modal__slider');
 
-modalWindow.addEventListener("click", closeOnBackDropClickOrBtn);
-modalWrp.addEventListener('mouseenter', () => {
-  modalAlert.style.display = 'none';
-})
-modalWrp.addEventListener('mouseleave', () => {
-  modalAlert.style.display = 'block';
-})
+let checkClassForBody = false;// провекрка наличия класса scroll-lock на body
+let clickAddCards = false; //проверка нажатия кнопки "Показать еще"
+let objSize; //размеры текущего объекта с продуктом
+let lengthImagesBeforeDisplay = 0; //длина массива с картинками
 // Карточки с пагинацией в каталоге
 let currentPage = 1,
   currentPageSearch = 1,
@@ -55,7 +43,7 @@ const paginationListElemSearch = document.querySelector('[data-filter="search-pa
 const paginationBtnAddCardsSearch = document.querySelector('[data-filter="search-pagination-btn"]');
 let currentPaginationSearch = document.getElementsByClassName('search-items');
 let nameSearch = 'search-items';
-// раные массивы карточек на странице
+// разные массивы карточек на странице
 let arrCardsPerPage = getArrCardsPerPage(products, cards, currentPage);
 let arrCardsFilterPerPage;
 let arrFoundCardsPerPage;
@@ -81,8 +69,84 @@ let searchInfo = document.querySelector('.search__info');
 let searchTextFilter = document.querySelector('.search__filter-text');
 let searchBtnFilter = document.querySelector('.search__filter');
 // загрузка карточек завершилась
-// let loadFinished = false,
 let canUpdate = false;
+// Форма в модалке
+const form = document.form;
+const buttonSubmit = document.querySelector('.form__submit-btn');
+let arrElementsForm = Array.from(form.elements).filter(item => !!item.name);
+// модальное окно формы обратной связи
+const modalWindowForm = document.querySelector('.modal-form');
+const modalAlertForm = document.querySelector('.modal-form__alert');
+const modalWrpForm = document.querySelector('.form');
+const modalCloseForm = document.querySelector('.form__btn');
+const modalCurrentProductForm = document.querySelector('.form__current-product');
+
+modalWindowForm.addEventListener("click", closeOnBackDropClickOrBtn);
+modalCloseForm.addEventListener('click', () => {
+  if (checkClassForBody) {
+    document.body.classList.remove("scroll-lock");
+    checkClassForBody = false;
+  }
+  modalCurrentProductForm.innerHTML = "";
+  cleaningInputs(arrElementsForm);
+
+  modalWindowForm.close();
+})
+showButtonToClose(modalWrpForm, modalAlertForm);
+
+// кнопка обратной связи
+const btnFeedback = document.querySelectorAll('.btn-feedback');
+btnFeedback.forEach(el => {
+  el.addEventListener('click', () => {
+    document.body.classList.add("scroll-lock");
+    checkClassForBody = true;
+    modalWindowForm.showModal();
+  })
+})
+// модальное окно с текстом сообщения
+const modalWindowMessage = document.querySelector('.modal-message');
+const modalBtnMessage = document.querySelector('.modal-message__btn');
+// модальное окошко (главная + каталог)
+const modalWindow = document.querySelector('.modal');
+const modalAlert = document.querySelector('.modal__alert');
+const modalWrp = document.querySelector('.modal__wrapper');
+const modalTitle = document.querySelector('.modal__title');
+const modalBtn = document.querySelector('.modal__btn');
+let modalSlider = document.querySelector('.modal__slider');
+
+modalWindow.addEventListener("click", closeOnBackDropClickOrBtn);
+showButtonToClose(modalWrp, modalAlert);
+
+// модальное окно страницы about
+const modalWindowAbout = document.querySelector('.modal-image');
+const modalAlertAbout = document.querySelector('.modal-image__alert');
+const modalWrpAbout = document.querySelector('.modal-image__wrapper');
+let aboutImg = document.querySelectorAll('.about__img');
+let currentImgAbout;
+aboutImg.forEach(item => {
+  item.addEventListener('click', () => {
+    item.classList.remove('about__img_hover');
+    currentImgAbout = item;
+    modalWrpAbout.insertAdjacentHTML('beforeend', `${item.parentNode.outerHTML}`);
+    document.body.classList.add("scroll-lock");
+    modalWindowAbout.showModal();
+  })
+})
+
+modalWindowAbout.addEventListener("click", closeOnBackDropClickOrBtn);
+showButtonToClose(modalWrpAbout, modalAlertAbout);
+// кнопки Заказать в карточках каталога
+let buttonsToRequest;
+// кнопка заказать в модалке
+let btnToRequestModal = document.querySelector('.modal__btn');
+btnToRequestModal.addEventListener('click', (event) => {
+  let idCurrentObject = event.target.dataset.numberCurrentObject;
+  let currentObj = searchCurrentObject(idCurrentObject);
+  insertCurrentObject(currentObj, modalCurrentProductForm);
+  modalWindowForm.showModal();
+})
+
+
 // -------------------------------------------------------------------------------------
 // NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW 
 // массив размеров картинок
@@ -124,7 +188,13 @@ let promise = new Promise((resolve, reject) => {
 })
 
 promise.then((response) => {
+  console.log('массив на странице в начале', arrCardsPerPage);
   displayCards(arrCardsPerPage, catalogItems, response);
+
+
+
+
+
   showModalWindow();
   displayPagination(products, cards, catalogItems, nameCatalog);
   setDisplayBtnAddCards();
@@ -164,10 +234,9 @@ const inputSearch = document.querySelectorAll('.search-input');
 let searchBoolean = false;
 inputSearch.forEach(el => {
   el.addEventListener('change', (e) => {
-    mainPage.hidden = true;
-    catalogPage.hidden = true;
-    searchPage.hidden = false;
+    switchPage(searchPage, mainPage, catalogPage, aboutPage, deliveryPage);
     sessionStorage.setItem('activePage', 'searchPage');
+    underlineBtn(null, mainBtn, catalogBtn, aboutBtn, deliveryBtn);
     clickAddCards = false;
     divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
     divLoad.style.display = "block";
@@ -299,38 +368,20 @@ details.forEach((targetDetail) => {
 // переключение между тегами main
 mainBtn.forEach(item => {
   item.addEventListener('click', () => {
-    if (sessionStorage.getItem('activePage') === 'searchPage') {
-      let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
-      catalogItemsPerPage.forEach(el => el.remove());
-    }
-    mainPage.hidden = false;
-    catalogPage.hidden = true;
-    // mainPage.style.display = "block";
-    // catalogPage.style.display = "none";
-    searchPage.hidden = true;
+    deleteSearchCards();
+    switchPage(mainPage, catalogPage, searchPage, aboutPage, deliveryPage);
     sessionStorage.setItem('activePage', 'mainPage');
-    mainBtn.forEach(item => item.style.borderBottom = '2px solid #f4f3f0');
-    catalogBtn.forEach(item => item.style.borderBottom = 'none');
+    underlineBtn(mainBtn, catalogBtn, aboutBtn, deliveryBtn);
     clickAddCards = false;
   });
 })
 catalogBtn.forEach(elem => {
   elem.addEventListener('click', () => {
 
-    if (sessionStorage.getItem('activePage') === 'searchPage') {
-      let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
-      catalogItemsPerPage.forEach(el => el.remove());
-    }
-
-    mainPage.hidden = true;
-    catalogPage.hidden = false;
-    // mainPage.style.display = "none";
-    // catalogPage.style.display = "block";
-    searchPage.hidden = true;
+    deleteSearchCards();
+    switchPage(catalogPage, mainPage, searchPage, aboutPage, deliveryPage);
     sessionStorage.setItem('activePage', 'catalogPage');
-
-    mainBtn.forEach(item => item.style.borderBottom = 'none');
-    catalogBtn.forEach(item => item.style.borderBottom = '2px solid #f4f3f0');
+    underlineBtn(catalogBtn, mainBtn, aboutBtn, deliveryBtn);
     clickAddCards = false;
 
     if (searchBoolean) {
@@ -349,7 +400,7 @@ catalogBtn.forEach(elem => {
       }
       currentPage = 1;
       arrCardsPerPage = getArrCardsPerPage(products, cards, currentPage);
-     
+
       displayCards(arrCardsPerPage, catalogItems);
       showModalWindow();
 
@@ -372,7 +423,146 @@ catalogBtn.forEach(elem => {
     }, 100)
   });
 })
+aboutBtn.forEach(elem => {
+  elem.addEventListener('click', () => {
+    deleteSearchCards();
+    switchPage(aboutPage, mainPage, catalogPage, searchPage, deliveryPage);
+    sessionStorage.setItem('activePage', 'aboutPage');
+    underlineBtn(aboutBtn, mainBtn, catalogBtn, deliveryBtn);
+  })
+})
+deliveryBtn.forEach(elem => {
+  elem.addEventListener('click', () => {
+    deleteSearchCards();
+    switchPage(deliveryPage, mainPage, catalogPage, searchPage, aboutPage);
+    sessionStorage.setItem('activePage', 'deliveryPage');
+    underlineBtn(deliveryBtn, mainBtn, catalogBtn, aboutBtn);
+  })
+})
+// Сортировка на главной странице и в каталоге
+buttons.forEach(item => {
+  if (item.getAttribute('class').includes('gallery')) {
+    divsSort.forEach(elem => {
+      setDisplayEl(elem, btnActive);
 
+      item.addEventListener('click', () => {
+        buttons.forEach(i => {
+          if (i !== item) {
+            i.classList.remove('gallery__btn_active');
+          } else {
+            item.classList.add('gallery__btn_active');
+          }
+        })
+        setDisplayEl(elem, item);
+      })
+    })
+  } else if (item.getAttribute('class').includes('catalog')) {
+
+    item.addEventListener('click', (event) => {
+      clickAddCards = false;
+      divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
+      divLoad.style.display = "block";
+      arrFilteredCards = [];
+
+      if ((targetBtn !== event.target) && (btnClose !== event.target)) {
+        checkingForFilter = true;
+        let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
+        catalogItemsPerPage.forEach(el => el.remove());
+
+        products.forEach(el => {
+          if (el.filter.indexOf(item.dataset.filter) != -1) {
+            arrFilteredCards.push(el);
+          }
+        })
+        if (arrFilteredCards.length <= cards) {
+          Array.from(currentPaginationCatalog).forEach(item => item.remove());
+
+          displayCards(arrFilteredCards, catalogItems);
+          showModalWindow();
+          paginationBtnAddCardsCatalog.style.display = 'none';
+        } else {
+          arrCardsFilterPerPage = getArrCardsPerPage(arrFilteredCards, cards, currentPageWithFilter);
+
+          displayCards(arrCardsFilterPerPage, catalogItems);
+          showModalWindow();
+          displayPagination(arrFilteredCards, cards, catalogItems, nameCatalog);
+          paginationBtnAddCardsCatalog.style.display = 'block';
+        }
+
+        buttons.forEach((i) => {
+          if (i.getAttribute('class').includes('catalog')) {
+            if (i !== item) {
+              i.classList.remove('catalog__btn_active');
+              if (i.children[0]) {
+                i.children[0].remove();
+              }
+            } else {
+              item.classList.add('catalog__btn_active');
+              if (!item.children[0]) {
+                item.insertAdjacentHTML('beforeend', `<span class="buttons__btn-icon"><svg class="buttons__btn-svg"><use href="./images/sprite.svg#close-icon"></use></svg></span>`);
+                btnClose = document.querySelector('.buttons__btn-svg');
+                btnClose.addEventListener('click', () => { })
+              }
+            }
+          }
+        })
+        targetBtn = event.target;
+
+      } else {
+        checkingForFilter = false;
+        catalogItems.innerHTML = "";
+        currentPageWithFilter = 1;
+
+        displayCards(arrCardsPerPage, catalogItems);
+        showModalWindow();
+        item.classList.remove('catalog__btn_active');
+        item.children[0].remove();
+        targetBtn = null;
+        btnClose = null;
+
+        displayPagination(products, cards, catalogItems, nameCatalog);
+        setDisplayBtnAddCards();
+      }
+    })
+  }
+})
+// поиск текущего объекта по id
+function searchCurrentObject(id) {
+  for (let index = 0; index < products.length; index++) {
+    const element = products[index];
+    if (element.id === id) {
+      return element;
+    }
+  }
+}
+// вставить картинку в заявку
+function insertCurrentObject(object, div) {
+  getPathsToImg(object);
+  div.insertAdjacentHTML('afterbegin', `
+              <picture>
+                   <source srcset=${arrSrcAvif[0]} type="image/avif">
+                    <source srcset=${arrSrcWebp[0]} type="image/webp">
+                    <img src="${arrSrcJpg[0]}" alt="" width="100">
+              </picture>
+              <p>${object.title}</p>
+      `)
+}
+// показывать/скрывать кнопку Закрыть в модалке
+function showButtonToClose(divModal, button) {
+  divModal.addEventListener('mouseenter', () => {
+    button.style.display = 'none';
+  })
+  divModal.addEventListener('mouseleave', () => {
+    button.style.display = 'block';
+  })
+}
+// удалить карточки со страницы поиска, если они были
+function deleteSearchCards() {
+  if (sessionStorage.getItem('activePage') === 'searchPage' && arrFoundCards !== undefined) {
+    let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
+    catalogItemsPerPage.forEach(el => el.remove());
+  }
+}
 // событие клика для слайдера, открытие модального окна
 function showModalWindow() {
   if (clickAddCards) {
@@ -432,6 +622,7 @@ function showModalWindow() {
       for (let i = 0; i < arrTexts.length; i++) {
         modalBtn.insertAdjacentHTML('beforebegin', `<p class="modal__text">${arrTexts[i]}</p>`);
       }
+      modalBtn.dataset.numberCurrentObject = `${products[indexCurrentObj].id}`;
       modalTitle.textContent = `${products[indexCurrentObj].title}`;
       document.body.classList.add("scroll-lock");
       modalWindow.showModal();
@@ -470,6 +661,7 @@ function showModalWindowOnMainPage(object, number) {
   for (let i = 0; i < arrTexts.length; i++) {
     modalBtn.insertAdjacentHTML('beforebegin', `<p class="modal__text">${arrTexts[i]}</p>`);
   }
+  modalBtn.dataset.numberCurrentObject = `${object.id}`;
   modalTitle.textContent = `${object.title}`;
   document.body.classList.add("scroll-lock");
   modalWindow.showModal();
@@ -484,13 +676,18 @@ function getArrCardsPerPage(arr, cardsPerPage, page) {
 }
 
 function getSizeImage(arrSizeFull, objSizeOneCard) {
+  console.log('зашли в функцию getSizeImage');
   for (let j = 0; j < arrSizeFull.length; j++) {
+    console.log('проверяем arrSizeFull[j][0]', arrSizeFull[j][0]);
     let element = arrSizeFull[j][0].indexOf(objSizeOneCard.id);
+    console.log(element, 'element');
     if (element != -1) {
       objSize = arrSizeFull[j][1];
+      console.log('objSize сразу после присвоения значения', objSize);
       break;
     }
   }
+  console.log('objSize перед концом функции', objSize);
   return objSize;
 }
 
@@ -498,18 +695,26 @@ function loadCards(arr, divOnPage, arrayImgSize = arrSizes) {
   $('.slider').slick('unslick');
   canUpdate = false;
   let arrCopy = arrayImgSize.slice();
-
+  console.log('массив на странице в функции load', arr);
   return new Promise((resolve, reject) => {
+    console.log('массив на странице в promise load', arr);
     arr.forEach(item => {
+      console.log('передаем в функцию arrCopy', arrCopy);
+      console.log('передаем в функцию item', item);
       let result = getSizeImage(arrCopy, item);
-
+      console.log('получили result', result);
       let catalogItem = document.createElement('div');
-
-      if (result.size === 'small') {
-        catalogItem.className = 'catalog__item catalog__item_small';
+      console.log('получили catalogItem', catalogItem);
+      if (result) {
+        if (result.size === 'small') {
+          catalogItem.className = 'catalog__item catalog__item_small';
+        } else {
+          catalogItem.className = 'catalog__item catalog__item_big';
+        }
       } else {
-        catalogItem.className = 'catalog__item catalog__item_big';
+        reject();
       }
+
 
       catalogItem.id = `catalog__item-${item.id}`;
       divOnPage.append(catalogItem);
@@ -545,17 +750,16 @@ function loadCards(arr, divOnPage, arrayImgSize = arrSizes) {
                         <h3 class="catalog__item-title">${item.title}</h3>
                         <div class="catalog__item-subtitle">${item.subtitle}</div>
                     </div>
-                    <button class="catalog__item-btn">Заказать</button>
+                    <button class="catalog__item-btn" data-current-id="${item.id}">Заказать</button>
                 </div>
               `);
     })
-
     resolve();
   })
 }
 
 function displayCards(arrayPerPage, divToInsert, arraySizes) {
-
+  console.log('массив на странице в функции display', arrayPerPage);
   loadCards(arrayPerPage, divToInsert, arraySizes).then(() => {
     $('.slider').slick({
       arrows: false,
@@ -572,6 +776,34 @@ function displayCards(arrayPerPage, divToInsert, arraySizes) {
     divBackground.style.display = "none";
     divLoad.style.display = "none";
     divLoad.innerHTML = "";
+
+    let lengthBeforeClickAddCards;
+    if (clickAddCards) {
+      lengthBeforeClickAddCards = buttonsToRequest.length;
+    } else {
+      lengthBeforeClickAddCards = 0;
+    }
+
+    buttonsToRequest = document.querySelectorAll('.catalog__item-btn');
+    let arrayButtonsToRequest = Array.from(buttonsToRequest);
+    if (lengthBeforeClickAddCards !== 0) {
+      arrayButtonsToRequest.splice(0, lengthBeforeClickAddCards);
+    }
+    arrayButtonsToRequest.forEach(el => {
+      el.addEventListener('click', () => {
+        console.log(el.dataset.currentId, 'текущее ID');
+        let idCurrentObject = el.dataset.currentId;
+        let currentObj = searchCurrentObject(idCurrentObject);
+        insertCurrentObject(currentObj, modalCurrentProductForm);
+        document.body.classList.add("scroll-lock");
+        checkClassForBody = true;
+        modalWindowForm.showModal();
+      })
+    })
+
+  }).catch(() => {
+    console.log('произошла ошибка загрузки');
+    window.location.reload();
   })
 }
 
@@ -660,7 +892,7 @@ function displayPaginationBtnWithFilter(page, array, div) {
     currentPageWithFilter = page;
     arrCardsFilterPerPage = getArrCardsPerPage(array, cards, currentPageWithFilter);
     div.innerHTML = "";
-   
+
     displayCards(arrCardsFilterPerPage, div);
     showModalWindow();
 
@@ -705,93 +937,6 @@ function getPathsToImg(obj) {
     arrSrcJpg.push(item.replace('avif', 'jpg'));
   })
 }
-// Сортировка на главной странице и в каталоге
-buttons.forEach(item => {
-  if (item.getAttribute('class').includes('gallery')) {
-    divsSort.forEach(elem => {
-      setDisplayEl(elem, btnActive);
-
-      item.addEventListener('click', () => {
-        buttons.forEach(i => {
-          if (i !== item) {
-            i.classList.remove('gallery__btn_active');
-          } else {
-            item.classList.add('gallery__btn_active');
-          }
-        })
-        setDisplayEl(elem, item);
-      })
-    })
-  } else if (item.getAttribute('class').includes('catalog')) {
-
-    item.addEventListener('click', (event) => {
-      clickAddCards = false;
-      divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
-      divLoad.style.display = "block";
-      arrFilteredCards = [];
-
-      if ((targetBtn !== event.target) && (btnClose !== event.target)) {
-        checkingForFilter = true;
-        let catalogItemsPerPage = document.querySelectorAll('.catalog__item');
-        catalogItemsPerPage.forEach(el => el.remove());
-
-        products.forEach(el => {
-          if (el.filter.indexOf(item.dataset.filter) != -1) {
-            arrFilteredCards.push(el);
-          }
-        })
-        if (arrFilteredCards.length <= cards) {
-          Array.from(currentPaginationCatalog).forEach(item => item.remove());
-      
-          displayCards(arrFilteredCards, catalogItems);
-          showModalWindow();
-          paginationBtnAddCardsCatalog.style.display = 'none';
-        } else {
-          arrCardsFilterPerPage = getArrCardsPerPage(arrFilteredCards, cards, currentPageWithFilter);
-
-          displayCards(arrCardsFilterPerPage, catalogItems);
-          showModalWindow();
-          displayPagination(arrFilteredCards, cards, catalogItems, nameCatalog);
-          paginationBtnAddCardsCatalog.style.display = 'block';
-        }
-
-        buttons.forEach((i) => {
-          if (i.getAttribute('class').includes('catalog')) {
-            if (i !== item) {
-              i.classList.remove('catalog__btn_active');
-              if (i.children[0]) {
-                i.children[0].remove();
-              }
-            } else {
-              item.classList.add('catalog__btn_active');
-              if (!item.children[0]) {
-                item.insertAdjacentHTML('beforeend', `<span class="buttons__btn-icon"><svg class="buttons__btn-svg"><use href="./images/sprite.svg#close-icon"></use></svg></span>`);
-                btnClose = document.querySelector('.buttons__btn-svg');
-                btnClose.addEventListener('click', () => { })
-              }
-            }
-          }
-        })
-        targetBtn = event.target;
-
-      } else {
-        checkingForFilter = false;
-        catalogItems.innerHTML = "";
-        currentPageWithFilter = 1;
-
-        displayCards(arrCardsPerPage, catalogItems);
-        showModalWindow();
-        item.classList.remove('catalog__btn_active');
-        item.children[0].remove();
-        targetBtn = null;
-        btnClose = null;
-
-        displayPagination(products, cards, catalogItems, nameCatalog);
-        setDisplayBtnAddCards();
-      }
-    })
-  }
-})
 
 function setDisplayEl(div, button) {
   if (div.getAttribute('class').endsWith(button.getAttribute('data-filter'))) {
@@ -801,21 +946,51 @@ function setDisplayEl(div, button) {
   }
 }
 
-// закрытие модального окна при клике на подложку и на кнопку
+// закрытие модального окна при клике на подложку и на кнопку Закрыть
 function closeOnBackDropClickOrBtn({ currentTarget, target }) {
   const isClickedOnBackDrop = target === currentTarget;
-  const isClickedOnButton = target === modalAlert;
+  let isClickedOnButton;
+  switch (target.className) {
+    case 'modal':
+    case 'modal__alert btn__close':
+      isClickedOnButton = target === modalAlert;
+      if (isClickedOnBackDrop || isClickedOnButton) {
+        $('.modal__slider').slick('unslick');
+        modalTitle.textContent = '';
+        let modalTextAll = document.querySelectorAll('.modal__text');
+        modalTextAll.forEach(item => {
+          item.remove();
+        })
+        modalSlider.innerHTML = '';
+        document.body.classList.remove("scroll-lock");
+        modalWindow.close();
 
-  if (isClickedOnBackDrop || isClickedOnButton) {
-    $('.modal__slider').slick('unslick');
-    modalTitle.textContent = '';
-    let modalTextAll = document.querySelectorAll('.modal__text');
-    modalTextAll.forEach(item => {
-      item.remove();
-    })
-    modalSlider.innerHTML = '';
-    modalWindow.close();
-    document.body.classList.remove("scroll-lock");
+      }
+      break;
+    case 'modal-image':
+    case 'modal-image__alert btn__close':
+      currentImgAbout.classList.add('about__img_hover');
+      isClickedOnButton = target === modalAlertAbout;
+      if (isClickedOnBackDrop || isClickedOnButton) {
+        modalWrpAbout.innerHTML = "";
+        document.body.classList.remove("scroll-lock");
+        modalWindowAbout.close();
+      }
+      break;
+    case 'modal-form':
+    case 'modal-form__alert btn__close':
+      isClickedOnButton = target === modalAlertForm;
+      if (isClickedOnBackDrop || isClickedOnButton) {
+        if (checkClassForBody) {
+          document.body.classList.remove("scroll-lock");
+          checkClassForBody = false;
+        }
+        modalCurrentProductForm.innerHTML = "";
+        cleaningInputs(arrElementsForm);
+
+        modalWindowForm.close();
+      }
+      break;
   }
 }
 
@@ -835,13 +1010,109 @@ function setClass(img) {
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 
+// Валидация формы обратной связи
 
 
 
 
 
 
+buttonSubmit.addEventListener('click', () => {
+  event.preventDefault();
+  console.log('клик произошел');
+
+  console.log(arrElementsForm, 'arrElementsForm');
+  let booleanCheckValidate = true;
+  arrElementsForm.forEach((input) => {
+
+    const textErr = document.querySelector(`[data-group=${input.name}]`);
+
+    switch (input.name) {
+
+      case 'nameUser':
+
+        if (input.value.trim() === '') {
+          paintRed(textErr, input);
+          booleanCheckValidate = booleanCheckValidate && false;
+        } else if (!validateName(input.value.trim())) {
+          paintRed(textErr, input);
+          textErr.textContent = 'имя введено некорректно';
+          booleanCheckValidate = booleanCheckValidate && false;
+        } else {
+          paintByDefault(textErr, input);
+          textErr.textContent = 'обязательно для заполнения';
+          booleanCheckValidate = booleanCheckValidate && true;
+        }
+        break;
+      case 'email':
+
+        if (input.value.trim() === '') {
+          paintRed(textErr, input);
+          booleanCheckValidate = booleanCheckValidate && false;
+        } else if (!validateEmail(input.value)) {
+          paintRed(textErr, input);
+          textErr.textContent = 'email введен некорректно';
+          booleanCheckValidate = booleanCheckValidate && false;
+        } else {
+          paintByDefault(textErr, input);
+          textErr.textContent = 'обязательно для заполнения';
+          booleanCheckValidate = booleanCheckValidate && true;
+        }
+        break;
+      case 'message':
+
+        if (input.value.trim() === '') {
+          paintRed(textErr, input);
+          booleanCheckValidate = booleanCheckValidate && false;
+        } else if (!validateName(input.value.trim())) {
+          paintRed(textErr, input);
+          textErr.textContent = 'сообщение введено некорректно';
+          booleanCheckValidate = booleanCheckValidate && false;
+        } else {
+          paintByDefault(textErr, input);
+          textErr.textContent = 'обязательно для заполнения';
+          booleanCheckValidate = booleanCheckValidate && true;
+        }
+        break;
+
+    }
+
+    if (booleanCheckValidate) {
+      modalWindowMessage.style.display = "flex";
+      modalWindowMessage.showModal();
+
+    }
+
+  });
+})
+modalBtnMessage.addEventListener('click', () => {
+  modalWindowMessage.style.display = "none";
+  modalWindowMessage.close();
+})
 
 
+function paintRed(text, frame) {
+  text.style.color = 'red';
+  frame.style.border = '3px solid red';
+}
 
+function paintByDefault(text, frame) {
+  text.style.color = '#000';
+  frame.style.border = 'none';
+}
 
+function validateName(name) {
+  const re = /[а-яА-ЯЁё]/;
+  return re.test(name);
+}
+// Проверка email'a:
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+function cleaningInputs(arr) {
+  arr.forEach((item) => {
+    item.value = '';
+  });
+}

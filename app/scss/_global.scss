@@ -58,6 +58,8 @@ body {
     }
 
     &__link {
+        display: inline-block;
+        min-width: 76px;
         color: #F4F3F0;
         font-weight: 300;
         text-decoration: none;
@@ -65,13 +67,13 @@ body {
         @include fonts(14px, 16px);
         letter-spacing: 1px;
         padding-bottom: 10px;
+        padding-top: 12px;
     }
 }
 
 .contacts {
     display: flex;
     column-gap: 10px;
-    padding-left: 30px;
 
     &__social-link {
         display: inline-block;
@@ -93,10 +95,6 @@ body {
         column-gap: 10px;
         height: 33px;
         text-decoration: none;
-        font-family: 'Playfair Display', serif;
-        @include fonts(15px, 16px);
-        letter-spacing: 1.5px;
-        color: #fff;
         padding: 0 10px;
         background-color: rgb(33 65 46);
         border: 1px solid #fff;
@@ -111,6 +109,14 @@ body {
         width: 20px;
         height: 20px;
     }
+
+    &__text {
+        display: block;
+        font-family: 'Playfair Display', serif;
+        @include fonts(15px, 16px);
+        letter-spacing: 1.5px;
+        color: #fff;
+    }
 }
 
 .search-input {
@@ -120,10 +126,34 @@ body {
     background-position: 10px;
 }
 
+.top {
+    padding: 16px 20px 26px;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        background-color: #2a3730;
+        bottom: 0;
+        right: 0;
+        width: 1150px;
+        height: 1px;
+    }
+}
+
+.top-title {
+    font-family: 'Playfair Display', serif;
+    @include fonts(24px, 40px, 300);
+    text-transform: uppercase;
+    text-align: center;
+}
+
 .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    row-gap: 20px;
     padding: 40px 0;
 
     &__btn {
@@ -144,3 +174,15 @@ body {
     }
 }
 
+.btn__close {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    @include fonts(16px, 18px, 700);
+    padding: 15px 25px;
+    color: rgb(194 231 213 / 50%);
+    cursor: pointer;
+
+}
