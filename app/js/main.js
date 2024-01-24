@@ -148,7 +148,7 @@ btnToRequestModal.addEventListener('click', (event) => {
 
 
 // -------------------------------------------------------------------------------------
-// NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW 
+
 // массив размеров картинок
 let arrSizes = [];
 
@@ -190,10 +190,6 @@ let promise = new Promise((resolve, reject) => {
 promise.then((response) => {
   console.log('массив на странице в начале', arrCardsPerPage);
   displayCards(arrCardsPerPage, catalogItems, response);
-
-
-
-
 
   showModalWindow();
   displayPagination(products, cards, catalogItems, nameCatalog);
