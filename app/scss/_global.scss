@@ -127,7 +127,7 @@ body {
 }
 
 .top {
-    padding: 16px 20px 26px;
+    padding: 16px 0 26px;
     position: relative;
 
     &::after {
@@ -136,7 +136,7 @@ body {
         background-color: #2a3730;
         bottom: 0;
         right: 0;
-        width: 1150px;
+        width: 80%;
         height: 1px;
     }
 }
@@ -144,6 +144,8 @@ body {
 .top-title {
     font-family: 'Playfair Display', serif;
     @include fonts(24px, 40px, 300);
+    font-weight: 300;
+    @include fluidFont(18px, 24px, 34px, 40px, 250px, 1920px, 18px);
     text-transform: uppercase;
     text-align: center;
 }
