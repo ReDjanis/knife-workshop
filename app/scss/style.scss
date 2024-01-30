@@ -742,7 +742,8 @@
 }
 
 .slider,
-.modal__slider {
+.modal__slider,
+.about-slider {
     width: 100%;
 
     .slick-list {
@@ -823,10 +824,6 @@ display: block;
             background-color: #47755b;
         }
     }
-
-
-
-
 }
 
 .search {
@@ -915,7 +912,7 @@ display: block;
 
     &__text {
         padding: 10px 0;
-        @include fonts(18px, 30px);
+        @include fluidFont(16px, 18px, 26px, 30px, 250px, 1920px, 16px);
         letter-spacing: 0.5px;
         text-indent: 30px;
 
@@ -944,6 +941,49 @@ display: block;
         &:hover {
             opacity: 0.8;
             box-shadow: 0px 0px 9px 1px #060606;
+        }
+    }
+
+    &-slider {
+        max-height: 500px;
+        height: 100%;
+        position: relative;
+
+        .slick-list {
+            cursor: auto;
+            height: 100%;
+        }
+
+        .slick-arrow {
+            position: absolute;
+            top: 50%;
+            margin-top: -40px;
+            z-index: 4;
+            font-size: 0;
+            width: calc(35px + (50 - 35) * ((100vw - 270px) / (1150 - 270)));
+            height: calc(70px + (80 - 70) * ((100vw - 270px) / (1150 - 270)));
+            cursor: pointer;
+        }
+
+        .slick-prev {
+            left: 0;
+            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#left-arrow-icon) 0 center / 100% no-repeat;
+        }
+
+        .slick-next {
+            right: 0;
+            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#right-arrow-icon) 0 center / 100% no-repeat;
+        }
+
+        .slick-track {
+            align-items: flex-start;
+
+            img {
+                max-height: calc(150px + (300 - 150) * ((100vw - 270px) / (1150 - 270)));
+                object-fit: contain;
+                background-color: #f1eee6;
+                margin-right: 10px;
+            }
         }
     }
 }
@@ -1619,6 +1659,12 @@ display: block;
             margin-bottom: calc(30px + (0 - 30) * ((100vw - 595px) / (1600 - 595)));
         }
     }
+
+    .about {
+        &__wrp {
+            column-gap: calc(40px + (90 - 40) * ((100vw - 1150px) / (1600 - 1150)));
+        }
+    }
 }
 
 @media screen and (max-width: 1315px) {
@@ -1678,6 +1724,13 @@ display: block;
         }
     }
 
+    .about {
+        &__wrp {
+            flex-direction: column-reverse;
+            row-gap: 40px;
+        }
+    }
+
     .delivery {
         &__content {
             row-gap: calc(40px + (80 - 40) * ((100vw - 270px) / (1150 - 270)));
@@ -1703,8 +1756,6 @@ display: block;
             width: 100%;
         }
     }
-
-
 
     .footer {
         &__communication {
@@ -2101,6 +2152,7 @@ display: block;
             padding: 30px 15px 80px 15px;
         }
     }
+
 }
 
 @media screen and (max-width: 450px) {

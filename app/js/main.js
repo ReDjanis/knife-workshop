@@ -145,6 +145,26 @@ btnToRequestModal.addEventListener('click', (event) => {
   insertCurrentObject(currentObj, modalCurrentProductForm);
   modalWindowForm.showModal();
 })
+// слайдер на странице about
+const aboutPhoto = document.querySelector('.about__photo');
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 1150) {
+    aboutPhoto.classList.add('about-slider');
+
+    $('.about-slider').slick({
+      dots: true,
+      speed: 500,
+      cssEase: 'linear',
+      variableWidth: true,
+      centerMode: true,
+    });
+  } else {
+    $('.about-slider').slick('unslick');
+    aboutPhoto.classList.remove('about-slider');
+  }
+})
+
 
 
 // -------------------------------------------------------------------------------------
