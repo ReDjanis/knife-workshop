@@ -29,7 +29,7 @@ let lengthImagesBeforeDisplay = 0; //длина массива с картинк
 // Карточки с пагинацией в каталоге
 let currentPage = 1,
   currentPageSearch = 1,
-  cards = 15,
+  cards = 14,
   start, end;
 const catalogItems = document.querySelector('#cardsInCatalog');
 const paginationListElemCatalog = document.querySelector('[data-filter="catalog-pagination-list"]');
