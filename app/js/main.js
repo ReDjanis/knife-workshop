@@ -83,14 +83,7 @@ const modalCurrentProductForm = document.querySelector('.form__current-product')
 
 modalWindowForm.addEventListener("click", closeOnBackDropClickOrBtn);
 modalCloseForm.addEventListener('click', () => {
-  if (checkClassForBody) {
-    document.body.classList.remove("scroll-lock");
-    checkClassForBody = false;
-  }
-  modalCurrentProductForm.innerHTML = "";
-  cleaningInputs(arrElementsForm);
-
-  modalWindowForm.close();
+  modalWindowForm.click();
 })
 showButtonToClose(modalWrpForm, modalAlertForm);
 
@@ -109,6 +102,7 @@ const modalBtnMessage = document.querySelector('.modal-message__btn');
 // модальное окошко (главная + каталог)
 const modalWindow = document.querySelector('.modal');
 const modalAlert = document.querySelector('.modal__alert');
+const modalBtnClose = document.querySelector('.modal__close');
 const modalWrp = document.querySelector('.modal__wrapper');
 const modalTitle = document.querySelector('.modal__title');
 const modalBtn = document.querySelector('.modal__btn');
@@ -116,7 +110,10 @@ let modalSlider = document.querySelector('.modal__slider');
 
 modalWindow.addEventListener("click", closeOnBackDropClickOrBtn);
 showButtonToClose(modalWrp, modalAlert);
-
+modalBtnClose.addEventListener('click', () => {
+  modalWindow.click();
+}
+);
 // модальное окно страницы about
 const modalWindowAbout = document.querySelector('.modal-image');
 const modalAlertAbout = document.querySelector('.modal-image__alert');
@@ -147,22 +144,50 @@ btnToRequestModal.addEventListener('click', (event) => {
 })
 // слайдер на странице about
 const aboutPhoto = document.querySelector('.about__photo');
+if (window.innerWidth <= 1150) {
+  aboutPhoto.classList.add('about-slider');
 
+  $('.about-slider').slick({
+    dots: true,
+    speed: 500,
+    cssEase: 'linear',
+    variableWidth: true,
+    centerMode: true,
+    initialSlide: 0,
+  });
+}
 window.addEventListener('resize', () => {
   if (window.innerWidth <= 1150) {
-    aboutPhoto.classList.add('about-slider');
+    if (!aboutPhoto.classList.contains('about-slider')) {
+      aboutPhoto.classList.add('about-slider');
 
-    $('.about-slider').slick({
-      dots: true,
-      speed: 500,
-      cssEase: 'linear',
-      variableWidth: true,
-      centerMode: true,
-    });
+      $('.about-slider').slick({
+        dots: true,
+        speed: 500,
+        cssEase: 'linear',
+        variableWidth: true,
+        centerMode: true,
+        initialSlide: 0,
+      });
+    }
   } else {
     $('.about-slider').slick('unslick');
     aboutPhoto.classList.remove('about-slider');
   }
+})
+// бургер
+const burger = document.querySelector('#check-menu');
+const burgerNav = document.querySelector('.burger__nav');
+burgerNav.addEventListener('click', () => {
+  burger.checked = false;
+})
+// переход в страницу поиска по кнопкам
+const searchBtnAll = document.querySelectorAll('[data-name="search-button"]');
+searchBtnAll.forEach(item => {
+  item.addEventListener('click', () => {
+    switchPage(searchPage, mainPage, catalogPage, aboutPage, deliveryPage);
+    underlineBtn(null, mainBtn, catalogBtn, aboutBtn, deliveryBtn);
+  })
 })
 
 
@@ -887,6 +912,8 @@ function displayPaginationBtn(page, array, div, title) {
     liElem.classList.add('pagination__item_active');
 
     setDisplayBtnAddCards();
+
+    window.scrollTo(0, 0);
   })
   return liElem;
 }
@@ -917,6 +944,8 @@ function displayPaginationBtnWithFilter(page, array, div) {
     liElem.classList.add('pagination__item_active');
 
     setDisplayBtnAddCards();
+
+    window.scrollTo(0, 0);
   })
 
   return liElem;
@@ -1005,6 +1034,11 @@ function closeOnBackDropClickOrBtn({ currentTarget, target }) {
         cleaningInputs(arrElementsForm);
 
         modalWindowForm.close();
+        arrElementsForm.forEach((input) => {
+          const textErr = document.querySelector(`[data-group=${input.name}]`);
+          paintByDefault(textErr, input);
+          textErr.textContent = 'обязательно для заполнения';
+        })
       }
       break;
   }
@@ -1132,3 +1166,4 @@ function cleaningInputs(arr) {
     item.value = '';
   });
 }
+

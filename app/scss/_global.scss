@@ -143,7 +143,6 @@ body {
 
 .top-title {
     font-family: 'Playfair Display', serif;
-    @include fonts(24px, 40px, 300);
     font-weight: 300;
     @include fluidFont(18px, 24px, 34px, 40px, 250px, 1920px, 18px);
     text-transform: uppercase;
@@ -182,7 +181,8 @@ body {
     top: 0;
     right: 0;
     z-index: 100;
-    @include fonts(16px, 18px, 700);
+    font-weight: 700;
+    @include fluidFont(14px, 16px, 16px, 18px, 270px, 1920px, 16px);
     padding: 15px 25px;
     color: rgb(194 231 213 / 50%);
     cursor: pointer;

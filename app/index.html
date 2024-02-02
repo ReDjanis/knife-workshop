@@ -51,7 +51,7 @@
                 <div class="header__right-inner">
                     <div class="header__search">
                         <input class="header__search-input search-input" type="text" placeholder="Поиск по каталогу">
-                        <button class="header__search-btn">
+                        <button class="header__search-btn" data-name="search-button">
                             <svg class="header__search-svg">
                                 <use href="./images/sprite.svg#search-white-icon"></use>
                             </svg>
@@ -102,7 +102,7 @@
                         <a class="burger__item" href="mailto:DamaskKnife@yandex.ru">
                             DamaskKnife@yandex.ru
                         </a>
-                        <a class="burger__item" href="#">
+                        <a class="burger__item" href="#" data-name="search-button">
                             <svg class="burger__item-svg">
                                 <use href="./images/sprite.svg#search-white-icon"></use>
                             </svg>
@@ -905,6 +905,13 @@
         <dialog class="modal">
             <div class="modal__alert btn__close">Закрыть</div>
             <div class="modal__wrapper">
+                <div class="modal__close">
+                    <button class="modal__button-close" type="button">
+                        <svg class="modal__btn-close">
+                            <use href="./images/sprite.svg#close-icon"></use>
+                        </svg>
+                    </button>
+                </div>
                 <div class="modal__slider"></div>
                 <div class="modal__description">
                     <h3 class="modal__title"></h3>
@@ -978,10 +985,8 @@
                         </button>
                     </div>
                 </div>
+                <img class="modal-form__logo" src="./images/sprite.svg#logо" alt="">
             </form>
-
-            <img class="modal-form__logo" src="./images/sprite.svg#logо" alt="">
-
         </dialog>
 
         <dialog class="modal-message">

@@ -72,7 +72,7 @@
         padding: 6px 15px 4px 35px;
         border-radius: 4px;
         border: 1px solid #50735F;
-        @include fonts(16px, 16px);
+        @include fluidFont(14px, 16px, 14px, 16px, 270px, 1920px, 14px);
     }
 
     &__search-btn {
@@ -245,7 +245,6 @@
         display: flex;
         align-items: center;
         column-gap: 5px;
-        @include fonts(20px, 40px);
         text-decoration: none;
         padding: 10px 15px;
 
@@ -477,7 +476,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #1f3f83;
     }
 
     &__img {
@@ -642,8 +640,8 @@
     &__items {
         padding-bottom: 25px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(191px, 191px));
-        grid-template-rows: repeat(auto-fill, minmax(215px, 215px));
+        grid-template-columns: repeat(auto-fit, minmax(191px, 191px));
+        grid-template-rows: repeat(auto-fit, minmax(215px, 215px));
         grid-auto-flow: dense;
         gap: 10px;
         justify-content: center;
@@ -697,9 +695,6 @@
             justify-content: flex-end;
         }
 
-        .catalog__item-title {
-            margin-bottom: 10px;
-        }
     }
 
     &__item-desc {
@@ -716,6 +711,7 @@
         font-weight: 700;
         @include fluidFont(14px, 16px, 20px, 22px, 270px, 1920px, 14px);
         text-align: center;
+        margin-bottom: 10px;
     }
 
     &__item-subtitle {
@@ -764,6 +760,35 @@
 
     .slick-slide {
         height: auto;
+    }
+
+    .slick-arrow {
+        position: absolute;
+        top: 50%;
+        margin-top: -40px;
+        z-index: 4;
+        font-size: 0;
+        width: calc(35px + (50 - 35) * ((100vw - 270px) / (1150 - 270)));
+        height: calc(70px + (80 - 70) * ((100vw - 270px) / (1150 - 270)));
+        cursor: pointer;
+    }
+
+    .slick-prev {
+        left: 0;
+        background: transparent url(../images/sprite.svg#left-arrow-icon) 0 center / 100% no-repeat;
+
+        &:hover {
+            background-color: rgba(241, 238, 230, .5);
+        }
+    }
+
+    .slick-next {
+        right: 0;
+        background: transparent url(../images/sprite.svg#right-arrow-icon) 0 center / 100% no-repeat;
+
+        &:hover {
+            background-color: rgba(241, 238, 230, .5);
+        }
     }
 
     .slick-dots {
@@ -864,7 +889,6 @@
         min-height: calc(100vh - 295px);
         display: flex;
         flex-direction: column;
-
     }
 
     &__wrp {
@@ -876,7 +900,6 @@
 
     &__history {
         flex: 0 1 70%;
-
     }
 
     &__text {
@@ -900,7 +923,6 @@
     }
 
     &__img {
-        min-width: 350px;
         width: 100%;
     }
 
@@ -923,34 +945,11 @@
             height: 100%;
         }
 
-        .slick-arrow {
-            position: absolute;
-            top: 50%;
-            margin-top: -40px;
-            z-index: 4;
-            font-size: 0;
-            width: calc(35px + (50 - 35) * ((100vw - 270px) / (1150 - 270)));
-            height: calc(70px + (80 - 70) * ((100vw - 270px) / (1150 - 270)));
-            cursor: pointer;
-        }
-
-        .slick-prev {
-            left: 0;
-            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#left-arrow-icon) 0 center / 100% no-repeat;
-        }
-
-        .slick-next {
-            right: 0;
-            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#right-arrow-icon) 0 center / 100% no-repeat;
-        }
-
         .slick-track {
-            align-items: flex-start;
 
             img {
                 max-height: calc(150px + (300 - 150) * ((100vw - 270px) / (1150 - 270)));
                 object-fit: contain;
-                background-color: #f1eee6;
                 margin-right: 10px;
             }
         }
@@ -1089,6 +1088,26 @@
         cursor: pointer;
     }
 
+    &__close {
+        display: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 5;
+    }
+
+    &__button-close {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        background: rgba(80, 115, 95, .5);
+    }
+
+    &__btn-close {
+        width: 100%;
+        height: 100%;
+    }
+
     &__wrapper {
         display: flex;
         flex-direction: column;
@@ -1097,6 +1116,7 @@
         padding: 20px 20px 40px 20px;
         width: 100%;
         height: 100%;
+        position: relative;
     }
 
     &__slider {
@@ -1105,30 +1125,10 @@
         height: 100%;
         position: relative;
 
+
         .slick-list {
             cursor: auto;
             height: 100%;
-        }
-
-        .slick-arrow {
-            position: absolute;
-            top: 50%;
-            margin-top: -40px;
-            z-index: 4;
-            font-size: 0;
-            width: 50px;
-            height: 80px;
-            cursor: pointer;
-        }
-
-        .slick-prev {
-            left: 0;
-            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#left-arrow-icon) 0 center / 100% no-repeat;
-        }
-
-        .slick-next {
-            right: 0;
-            background: rgba(241, 238, 230, .5) url(../images/sprite.svg#right-arrow-icon) 0 center / 100% no-repeat;
         }
 
         .slick-track {
@@ -1160,20 +1160,21 @@
     }
 
     &__title {
-        @include fonts(20px, 30px, 700);
+        font-weight: 700;
+        @include fluidFont(18px, 20px, 28px, 30px, 270px, 1920px, 18px);
         text-align: center;
         width: 100%;
     }
 
     &__text {
-        @include fonts(18px, 28px);
+        @include fluidFont(16px, 18px, 26px, 28px, 270px, 1920px, 16px);
         letter-spacing: 0.5px;
         text-align: center;
     }
 
     &__btn {
         @extend %buttons;
-        @include fonts(18px, 28px);
+        @include fluidFont(16px, 18px, 26px, 28px, 270px, 1920px, 16px);
         padding: 10px 20px;
         background: rgba(#50735F, 0.5);
         border: none;
@@ -1219,7 +1220,6 @@
     border: 0;
     border-radius: 10px;
     background-color: #f1eee6;
-    overflow: hidden;
 
     &::backdrop {
         background-color: rgba(#22332c, 0.9);
@@ -1233,13 +1233,19 @@
         width: 300px;
         height: 300px;
         transform: rotateZ(-15deg);
+        z-index: -1;
     }
 
     .form {
-        padding: 30px 50px 40px 50px;
+        padding: 30px 50px 0px 50px;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
 
         &__close {
             text-align: right;
+            margin-bottom: 10px;
         }
 
         &__button {
@@ -1255,7 +1261,7 @@
         }
 
         &__title {
-            @include fonts(24px, 28px);
+            @include fluidFont(20px, 24px, 24px, 28px, 270px, 1920px, 20px);
             text-align: center;
             text-transform: uppercase;
         }
@@ -1275,13 +1281,13 @@
 
         &__item {
             display: flex;
-            column-gap: 20px;
+            column-gap: 10px;
             align-items: flex-start;
         }
 
         &__name {
             flex: 0 0 25%;
-            @include fonts(18px, 20px);
+            @include fluidFont(16px, 18px, 18px, 20px, 700px, 1920px, 16px);
             padding-top: 10px;
         }
 
@@ -1289,20 +1295,20 @@
             width: 100%;
             padding: 0px 8px 0px 8px;
             height: 40px;
-            @include fonts(16px, 20px);
+            @include fluidFont(14px, 16px, 18px, 20px, 270px, 1920px, 14px);
         }
 
         &__textarea {
             width: 100%;
             padding: 8px 8px 8px 8px;
             height: 120px;
-            @include fonts(16px, 20px);
+            @include fluidFont(14px, 16px, 18px, 20px, 270px, 1920px, 14px);
         }
 
         &__text {
             width: 100%;
             display: flex;
-            column-gap: 20px;
+            column-gap: 10px;
             margin-top: -15px;
         }
 
@@ -1311,13 +1317,13 @@
         }
 
         &__text-message {
-            @include fonts(14px, 16px);
+            @include fluidFont(12px, 14px, 14px, 16px, 270px, 1920px, 13px);
             width: 100%;
         }
 
         &__submit {
             text-align: center;
-            padding-top: 20px;
+            padding: 20px 0 40px;
         }
 
         &__submit-btn {
@@ -1353,7 +1359,7 @@
     }
 
     &__text {
-        @include fonts(18px, 20px);
+        @include fluidFont(16px, 18px, 18px, 20px, 270px, 1920px, 16px);
         letter-spacing: 0.5px;
     }
 
@@ -1382,7 +1388,7 @@
 
     &__btn {
         display: none;
-        max-width: 500px;
+        max-width: 400px;
         width: calc(200px + (500 - 200) * ((100vw - 270px) / (1920 - 270)));
         padding: 20px 25px;
         margin: 20px 0px;
@@ -1406,7 +1412,6 @@
 
     &__item {
         padding: 10px;
-        @include fonts(18px, 20px);
         @include fluidFont(16px, 18px, 18px, 20px, 270px, 1920px, 16px);
         cursor: pointer;
     }
@@ -1556,19 +1561,21 @@
 .error {
     align-items: center;
     row-gap: 30px;
-    padding-top: 30px;
+    padding: 30px 15px 0px;
     min-height: 100vh;
 
     &__image {
-        width: 660px;
-        height: 660px;
+        max-width: 660px;
+        width: 100%;
+        height: calc(450px + (660 - 450) * ((100vw - 270px) / (1920 - 270)));
         padding-left: 30px;
         background-image: url('../images/content/error.webp');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
         color: white;
-        @include fonts(200px, 180px, 700);
+        font-weight: 700;
+        @include fluidFont(80px, 200px, 100px, 180px, 270px, 1920px, 160px);
         text-shadow: 16px -14px 20px black;
         display: flex;
         flex-direction: column;
@@ -1576,11 +1583,13 @@
     }
 
     &__title {
-        @include fonts(30px, 30px, 700);
+        font-weight: 700;
+        @include fluidFont(26px, 30px, 26px, 30px, 270px, 1920px, 26px);
+        text-align: center;
     }
 
     &__info {
-        @include fonts(20px, 28px);
+        @include fluidFont(18px, 20px, 26px, 28px, 270px, 1920px, 18px);
         text-align: center;
     }
 
@@ -1674,7 +1683,7 @@
             background-color: rgb(33 65 46);
 
             &:hover {
-                background-color: #1f3f83;
+                background-color: #4969c0;
             }
         }
 
@@ -1761,6 +1770,7 @@
         }
     }
 }
+
 
 @media screen and (max-width: 995px) {
 
@@ -1917,6 +1927,32 @@
             padding-left: 0;
         }
     }
+
+    .modal {
+        max-width: calc(250px + (960 - 250) * ((100vw - 270px) / (995 - 270)));
+        width: 100%;
+
+        &__close {
+            display: block;
+        }
+    }
+
+    .modal-form {
+        max-width: calc(250px + (960 - 250) * ((100vw - 270px) / (995 - 270)));
+        width: 100%;
+
+        &__logo {
+            bottom: calc(-30px + (-60 - -30) * ((100vw - 400px) / (995 - 400)));
+            left: calc(-20px + (-50 - -20) * ((100vw - 400px) / (995 - 400)));
+            width: calc(150px + (300 - 150) * ((100vw - 450px) / (995 - 450)));
+            height: calc(150px + (300 - 150) * ((100vw - 450px) / (995 - 450)));
+        }
+
+        .form {
+            padding-left: calc(15px + (50 - 15) * ((100vw - 270px) / (995 - 270)));
+            padding-right: calc(15px + (50 - 15) * ((100vw - 270px) / (995 - 270)));
+        }
+    }
 }
 
 // -----------------
@@ -1970,10 +2006,12 @@
     }
 
     .gallery {
+
         &__items {
             justify-content: center;
-            grid-template-columns: repeat(auto-fill, minmax(auto, 240px));
+            grid-template-columns: repeat(auto-fit, minmax(auto, 240px));
             grid-auto-flow: dense;
+            margin: 0 -30px;
         }
 
         &__items.knives-kitchen {
@@ -1992,9 +2030,28 @@
     }
 }
 
+@media screen and (max-width: 650px) {
+    .modal-form {
+        .form {
+            &__content {
+                row-gap: 15px;
+            }
 
+            &__item {
+                flex-direction: column;
+                row-gap: 10px;
+            }
 
-@media screen and (max-width: 600px) {}
+            &__text-empty {
+                display: none;
+            }
+
+            &__submit {
+                padding: 0 0 20px;
+            }
+        }
+    }
+}
 
 @media screen and (max-width: 595px) {
     .container {
@@ -2019,13 +2076,13 @@
         &__btn {
             font-size: 0;
             padding: 0;
-            min-width: 50px;
+            width: 50px;
             height: 50px;
             border: solid 1px #50735F;
             column-gap: 0;
 
             &:nth-child(odd) {
-                min-width: 50px;
+                width: 50px;
             }
 
             .mini,
@@ -2036,6 +2093,13 @@
 
         &__items {
             grid-template-columns: minmax(auto, 350px);
+            margin: 0;
+        }
+
+        &__items.other {
+            .gallery__item:nth-child(4) {
+                grid-column: span 1;
+            }
         }
 
         &__items.knives-kitchen {
@@ -2157,7 +2221,7 @@
     .burger {
         &__item {
             text-align: right;
-            padding: 25px 15px;
+            padding: 25px 20px 25px 10px;
         }
     }
 
@@ -2179,37 +2243,65 @@
     }
 
     .catalog {
+        &__content {
+            padding: 20px 5px;
+        }
+
         &__items {
-            grid-template-rows: repeat(auto-fill, minmax(102.5px, 102.5px));
+            grid-template-columns: repeat(auto-fit, minmax(132.5px,
+                        calc(132.5px + (207.5 - 132.5) * ((100vw - 300px) / (450 - 300)))));
+            grid-template-rows: repeat(auto-fit, minmax(141px, 
+            calc(141px + (215 - 141) * ((100vw - 300px) / (450 - 300)))));
+            gap: 5px;
+        }
+
+        &__item {
+            padding: calc(5px + (10 - 5) * ((100vw - 300px) / (450 - 300)));
+            padding-bottom: calc(10px + (15 - 10) * ((100vw - 300px) / (450 - 300)));
+            column-gap: calc(4px + (15 - 4) * ((100vw - 300px) / (450 - 300)));
+            row-gap: calc(5px + (15 - 5) * ((100vw - 300px) / (450 - 300)));
         }
 
         &__item_small {
-            grid-row: span 4;
-        }
-
-        &__item_big {
-            grid-column: span 1;
             grid-row: span 3;
-            flex-direction: column;
-            max-height: 315px;
+            height: calc(330px + (430 - 330) * ((100vw - 300px) / (450 - 300)));
 
             img {
-                height: 134px;
+                height: calc(195px + (290 - 195) * ((100vw - 300px) / (450 - 300)));
             }
 
             .slider {
-                max-width: 200px;
                 flex: 1 0 60%;
+            }
+        }
+
+        &__item_big {
+            grid-column: span 2;
+            grid-row: span 1;
+            max-height: none;
+            height: 100%;
+
+            img {
+                height: calc(104px + (170 - 104) * ((100vw - 300px) / (450 - 300)));
+            }
+
+            .slider {
+                max-width: calc(156px + (278 - 156) * ((100vw - 300px) / (450 - 300)));
+
             }
 
             .catalog__item-desc {
-                row-gap: 15px;
-                justify-content: center;
+                row-gap: 0;
+                justify-content: space-between;
             }
 
             .catalog__item-title {
-                margin-bottom: 5px;
+                margin-top: 15px;
             }
+        }
+
+        &__item-subtitle {
+            display: none;
         }
     }
 
@@ -2217,6 +2309,87 @@
         &__top-input {
             width: 100%;
             min-width: 200px;
+        }
+    }
+
+    .slider {
+        .slick-dots {
+            li {
+                margin: 0 3px;
+            }
+
+            button {
+                width: 8px;
+                height: 8px;
+            }
+        }
+    }
+
+    .modal {
+        &__btn {
+            width: 150px;
+        }
+
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .catalog {
+        &__content {
+            padding: 20px 5px;
+        }
+
+        &__items {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 140px));
+            grid-template-rows: repeat(auto-fit, minmax(102.5px, 102.5px));
+            gap: 5px;
+        }
+
+        &__item {
+            padding: 5px;
+            row-gap: 5px;
+        }
+
+        &__item_small {
+            grid-row: span 3;
+            height: 340px;
+
+            img {
+                height: 194px;
+            }
+
+            .slider {
+                flex: 1 0 60%;
+            }
+        }
+
+        &__item_big {
+            grid-column: span 1;
+            grid-row: span 2;
+            flex-direction: column;
+            height: 226.67px;
+            row-gap: 0;
+
+            img {
+                height: 100px;
+            }
+
+            .slider {
+                max-width: 200px;
+                flex: 1 0 50%;
+            }
+
+            .catalog__item-desc {
+                row-gap: 8px;
+            }
+
+            .catalog__item-title {
+                margin-top: 5px;
+            }
+        }
+
+        &__item-subtitle {
+            display: none;
         }
     }
 }
