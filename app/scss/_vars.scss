@@ -1,14 +1,73 @@
+@use 'sass:math';
 @mixin fonts($fz, $lh, $fw: 400) {
     font-size: $fz;
     line-height: $lh;
     font-weight: $fw;
 }
 
+
+
+
+@function strip-unit($number) {
+    @if type-of($number)=='number'and not unitless($number) {
+        @return math.div($number, ($number * 0 + 1));
+    }
+
+    @return $number;
+}
+
+@function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
+    $f-min: strip-unit($f-min);
+    $f-max: strip-unit($f-max);
+    $w-min: strip-unit($w-min);
+    $w-max: strip-unit($w-max);
+
+    $k: calc(($f-max - $f-min)/($w-max - $w-min));
+    $b: $f-min - $k * $w-min;
+
+    $b: $b + $units;
+
+    @return calc(#{$k} * 100vw + #{$b});
+}
+
+@function calcFluidLineHeight($lh-min, $lh-max, $w-min, $w-max, $units: px) {
+    $lh-min: strip-unit($lh-min);
+    $lh-max: strip-unit($lh-max);
+    $w-min: strip-unit($w-min);
+    $w-max: strip-unit($w-max);
+
+    $k: calc(($lh-max - $lh-min)/($w-max - $w-min));
+    $b: $lh-min - $k * $w-min;
+
+    $b: $b + $units;
+
+    @return calc(#{$k} * 100vw + #{$b});
+}
+
+@mixin fluidFont($f-min, $f-max, $lh-min, $lh-max, $w-min, $w-max, $fallback: false) {
+
+    font-size: $f-min;
+    line-height: $lh-min;
+
+    @media (min-width: $w-min) {
+        @if ($fallback) {
+            font-size: $fallback;
+        }
+
+        font-size: calcFluidFontSize($f-min, $f-max, $w-min, $w-max);
+        line-height: calcFluidLineHeight($lh-min, $lh-max, $w-min, $w-max);
+    }
+
+    @media (min-width: $w-max) {
+        font-size: $f-max;
+        line-height: $lh-max;
+    }
+}
+
 %buttons {
     padding: 20px 25px;
-    @include fonts(20px, 20px);
-    background: lighten(transparent, 3%);
-    border: 1px solid rgba(#50735F, 4%);
+    @include fluidFont(14px, 18px, 18px, 20px, 250px, 1920px, 16px);
+    background: rgba(#50735F, 0.5);
     box-shadow: 1px 1px 0 #50735F, 0px 1px 6px #c3853e;
     letter-spacing: 1px;
     transition: all 150ms linear;
@@ -17,8 +76,8 @@
 
 %buttons-hover {
     background: rgba(#50735F, 0.5);
-    border: 1px solid rgba(#000, .05);
     box-shadow: inset -1px 2px 7px 4px rgb(0 0 0 / 20%);
     text-shadow: -1px -1px 0 rgba(#C58A46, 9.5%);
     transition: all 250ms linear;
 }
+
