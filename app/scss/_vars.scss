@@ -66,9 +66,8 @@
 
 %buttons {
     padding: 20px 25px;
-    @include fluidFont(16px, 18px, 18px, 20px, 250px, 1920px, 16px);
-    background: lighten(transparent, 3%);
-    border: 1px solid rgba(#50735F, 4%);
+    @include fluidFont(14px, 18px, 18px, 20px, 250px, 1920px, 16px);
+    background: rgba(#50735F, 0.5);
     box-shadow: 1px 1px 0 #50735F, 0px 1px 6px #c3853e;
     letter-spacing: 1px;
     transition: all 150ms linear;
@@ -77,7 +76,6 @@
 
 %buttons-hover {
     background: rgba(#50735F, 0.5);
-    border: 1px solid rgba(#000, .05);
     box-shadow: inset -1px 2px 7px 4px rgb(0 0 0 / 20%);
     text-shadow: -1px -1px 0 rgba(#C58A46, 9.5%);
     transition: all 250ms linear;

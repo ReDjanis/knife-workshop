@@ -15,17 +15,21 @@ document.addEventListener("DOMContentLoaded", checkActivePage);
 
 function switchPage(activePage, ...rest) {
   activePage.hidden = false;
-  for(let value of rest) {
+  for (let value of rest) {
     value.hidden = true;
   }
 }
 
 function underlineBtn(activeBtn, ...rest) {
   if (activeBtn) {
-    activeBtn.forEach(item => item.style.borderBottom = '2px solid #f4f3f0');
+    activeBtn.forEach(item => {
+      if (!item.classList.contains('header__logo-link')) {
+        item.style.borderBottom = '2px solid #f4f3f0';
+      }
+    });
   }
-  for(let value of rest) {
-    value.forEach(item => item.style.borderBottom = 'none');
+  for (let value of rest) {
+    value.forEach(item => item.style.borderBottom = '2px solid transparent');
   }
 }
 
@@ -61,4 +65,4 @@ function checkActivePage() {
 
 
 
-  
+

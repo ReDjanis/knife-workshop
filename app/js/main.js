@@ -112,11 +112,11 @@ modalWindow.addEventListener("click", closeOnBackDropClickOrBtn);
 showButtonToClose(modalWrp, modalAlert);
 modalBtnClose.addEventListener('click', () => {
   modalWindow.click();
-}
-);
+});
 // модальное окно страницы about
 const modalWindowAbout = document.querySelector('.modal-image');
 const modalAlertAbout = document.querySelector('.modal-image__alert');
+const modalBtnCloseAbout = document.querySelector('.modal-image__close');
 const modalWrpAbout = document.querySelector('.modal-image__wrapper');
 let aboutImg = document.querySelectorAll('.about__img');
 let currentImgAbout;
@@ -129,7 +129,9 @@ aboutImg.forEach(item => {
     modalWindowAbout.showModal();
   })
 })
-
+modalBtnCloseAbout.addEventListener('click', () => {
+  modalWindowAbout.click();
+});
 modalWindowAbout.addEventListener("click", closeOnBackDropClickOrBtn);
 showButtonToClose(modalWrpAbout, modalAlertAbout);
 // кнопки Заказать в карточках каталога
@@ -264,85 +266,20 @@ imagesMainPage.forEach(item => {
           }
         }
         showModalWindowOnMainPage(element, numImg);
+        $('.modal__slider').slick('refresh');
         break;
       }
     }
   })
 })
 // -------------------------------------------------------------------------------------
-
+// Поиск
 const inputSearch = document.querySelectorAll('.search-input');
 let searchBoolean = false;
+const debouncedHandle = debounce(performSearch, 300);
 inputSearch.forEach(el => {
-  el.addEventListener('change', (e) => {
-    switchPage(searchPage, mainPage, catalogPage, aboutPage, deliveryPage);
-    sessionStorage.setItem('activePage', 'searchPage');
-    underlineBtn(null, mainBtn, catalogBtn, aboutBtn, deliveryBtn);
-    clickAddCards = false;
-    divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
-    divLoad.style.display = "block";
-
-    let value = e.target.value.trimStart().toLowerCase();
-    searchTextFilter.textContent = `${value}`;
-    searchBtnFilter.style.display = "flex";
-
-    let searchBtnDel = document.querySelector('.search__btn-svg');
-    searchBtnDel.addEventListener('click', () => {
-      searchBtnFilter.style.display = "none";
-      searchCards.innerHTML = "";
-      searchCards.style.display = "none";
-      searchInfo.textContent = "Введите свой запрос";
-      paginationListElemSearch.innerHTML = "";
-      paginationBtnAddCardsSearch.style.display = "none";
-    })
-    arrFoundCards = [];
-    products.forEach(item => {
-
-      for (let key in item) {
-        if (!key.startsWith('src')) {
-          if (item[key].toLowerCase().includes(value)) {
-            arrFoundCards.push(item);
-            break;
-          }
-        }
-      }
-    })
-    if (arrFoundCards.length === 0) {
-      divLoad.style.display = "none";
-      divLoad.innerHTML = "";
-      searchInfo.textContent = "К сожалению, по вашему запросу ничего не найдено.";
-      searchCards.innerHTML = "";
-      searchCards.style.display = "none";
-      paginationListElemSearch.innerHTML = "";
-      paginationBtnAddCardsSearch.style.display = "none";
-    } else {
-      searchBoolean = true;
-      catalogItems.innerHTML = "";
-      searchCards.innerHTML = "";
-      searchCards.style.display = "grid";
-      searchInfo.textContent = "";
-      currentPageSearch = 1;
-      arrFoundCardsPerPage = getArrCardsPerPage(arrFoundCards, cards, currentPageSearch);
-
-      displayCards(arrFoundCardsPerPage, searchCards);
-      showModalWindow();
-
-      let currentItemLi = document.querySelector('.pagination__item_active');
-      if (currentItemLi) {
-        currentItemLi.classList.remove('pagination__item_active');
-      }
-
-      displayPagination(arrFoundCards, cards, searchCards, nameSearch);
-      setDisplayBtnAddCards();
-
-      if (arrFoundCards.length <= cards) {
-        paginationListElemSearch.innerHTML = "";
-      }
-    }
-    e.target.value = "";
-  })
+  el.addEventListener('input', debouncedHandle);
 })
-
 
 // -------------------------
 
@@ -408,6 +345,7 @@ details.forEach((targetDetail) => {
 
 // переключение между тегами main
 mainBtn.forEach(item => {
+
   item.addEventListener('click', () => {
     deleteSearchCards();
     switchPage(mainPage, catalogPage, searchPage, aboutPage, deliveryPage);
@@ -470,6 +408,7 @@ aboutBtn.forEach(elem => {
     switchPage(aboutPage, mainPage, catalogPage, searchPage, deliveryPage);
     sessionStorage.setItem('activePage', 'aboutPage');
     underlineBtn(aboutBtn, mainBtn, catalogBtn, deliveryBtn);
+    $('.about-slider').slick('refresh');
   })
 })
 deliveryBtn.forEach(elem => {
@@ -541,8 +480,7 @@ buttons.forEach(item => {
               item.classList.add('catalog__btn_active');
               if (!item.children[0]) {
                 item.insertAdjacentHTML('beforeend', `<span class="buttons__btn-icon"><svg class="buttons__btn-svg"><use href="./images/sprite.svg#close-icon"></use></svg></span>`);
-                btnClose = document.querySelector('.buttons__btn-svg');
-                btnClose.addEventListener('click', () => { })
+                btnClose = document.querySelector('.buttons__btn-icon');
               }
             }
           }
@@ -567,6 +505,87 @@ buttons.forEach(item => {
     })
   }
 })
+// автомат.поиск
+function performSearch(e) {
+  if (e.target.value.length < 3) return;
+  console.log(e.target.value, 'e.target.value');
+  switchPage(searchPage, mainPage, catalogPage, aboutPage, deliveryPage);
+  sessionStorage.setItem('activePage', 'searchPage');
+  underlineBtn(null, mainBtn, catalogBtn, aboutBtn, deliveryBtn);
+  clickAddCards = false;
+  divLoad.insertAdjacentHTML('beforeend', arrSvgIconLoading[Math.floor(Math.random() * arrSvgIconLoading.length)]);
+  divLoad.style.display = "block";
+
+  let value = e.target.value.trimStart().toLowerCase();
+  searchTextFilter.textContent = `${value}`;
+  searchBtnFilter.style.display = "flex";
+
+  let searchBtnDel = document.querySelector('.search__btn-svg');
+  searchBtnDel.addEventListener('click', () => {
+    searchBtnFilter.style.display = "none";
+    searchCards.innerHTML = "";
+    searchCards.style.display = "none";
+    searchInfo.textContent = "Введите свой запрос";
+    paginationListElemSearch.innerHTML = "";
+    paginationBtnAddCardsSearch.style.display = "none";
+    e.target.value = "";
+  })
+  arrFoundCards = [];
+  products.forEach(item => {
+
+    for (let key in item) {
+      if (!key.startsWith('src')) {
+        if (item[key].toLowerCase().includes(value)) {
+          arrFoundCards.push(item);
+          break;
+        }
+      }
+    }
+  })
+  if (arrFoundCards.length === 0) {
+    divLoad.style.display = "none";
+    divLoad.innerHTML = "";
+    searchInfo.textContent = "К сожалению, по вашему запросу ничего не найдено.";
+    searchCards.innerHTML = "";
+    searchCards.style.display = "none";
+    paginationListElemSearch.innerHTML = "";
+    paginationBtnAddCardsSearch.style.display = "none";
+  } else {
+    searchBoolean = true;
+    catalogItems.innerHTML = "";
+    searchCards.innerHTML = "";
+    searchCards.style.display = "grid";
+    searchInfo.textContent = "";
+    currentPageSearch = 1;
+    arrFoundCardsPerPage = getArrCardsPerPage(arrFoundCards, cards, currentPageSearch);
+
+    displayCards(arrFoundCardsPerPage, searchCards);
+    showModalWindow();
+
+    let currentItemLi = document.querySelector('.pagination__item_active');
+    if (currentItemLi) {
+      currentItemLi.classList.remove('pagination__item_active');
+    }
+
+    displayPagination(arrFoundCards, cards, searchCards, nameSearch);
+    setDisplayBtnAddCards();
+
+    if (arrFoundCards.length <= cards) {
+      paginationListElemSearch.innerHTML = "";
+    }
+  }
+}
+// задержка автомат.поиска
+function debounce(callee, timeoutMs) {
+  return function perform(...args) {
+    let previousCall = this.lastCall
+    this.lastCall = Date.now()
+    if (previousCall && this.lastCall - previousCall <= timeoutMs) {
+      clearTimeout(this.lastCallTimer)
+    }
+    this.lastCallTimer = setTimeout(() => callee(...args), timeoutMs)
+  }
+}
 // поиск текущего объекта по id
 function searchCurrentObject(id) {
   for (let index = 0; index < products.length; index++) {
@@ -590,12 +609,14 @@ function insertCurrentObject(object, div) {
 }
 // показывать/скрывать кнопку Закрыть в модалке
 function showButtonToClose(divModal, button) {
-  divModal.addEventListener('mouseenter', () => {
-    button.style.display = 'none';
-  })
-  divModal.addEventListener('mouseleave', () => {
-    button.style.display = 'block';
-  })
+  if (window.innerWidth > 995) {
+    divModal.addEventListener('mouseenter', () => {
+      button.style.display = 'none';
+    })
+    divModal.addEventListener('mouseleave', () => {
+      button.style.display = 'block';
+    })
+  }
 }
 // удалить карточки со страницы поиска, если они были
 function deleteSearchCards() {
@@ -620,6 +641,8 @@ function showModalWindow() {
 
   arrayImages.forEach(function (i) {
     i.addEventListener('click', () => {
+
+
       let indexCurrentObj;
       let idObj = i.dataset.object.slice(5);
       let numImg = i.dataset.numimg.replace(/[^0-9]/g, '');
@@ -633,17 +656,19 @@ function showModalWindow() {
       }
       getPathsToImg(products[indexCurrentObj]);
 
-      for (let i = 0; i < arrSrcAvif.length; i++) {
+      for (let j = 0; j < arrSrcAvif.length; j++) {
 
         modalSlider.insertAdjacentHTML('beforeend', `
             <div class="modal__item">
                 <picture>
-                    <source srcset=${arrSrcAvif[i]} type="image/avif">
-                    <source srcset=${arrSrcWebp[i]} type="image/webp">
-                    <img src=${arrSrcJpg[i]} alt="Нож">
+                    <source srcset=${arrSrcAvif[j]} type="image/avif">
+                    <source srcset=${arrSrcWebp[j]} type="image/webp">
+                    <img src=${arrSrcJpg[j]} alt="Нож">
                 </picture>
             </div>`);
       }
+
+
       if (!modalSlider.classList.contains('slick-initialized')) {
         $('.modal__slider').slick({
           dots: true,
@@ -706,7 +731,6 @@ function showModalWindowOnMainPage(object, number) {
   modalTitle.textContent = `${object.title}`;
   document.body.classList.add("scroll-lock");
   modalWindow.showModal();
-  $('.modal__slider').slick('refresh');
 }
 
 function getArrCardsPerPage(arr, cardsPerPage, page) {
@@ -719,16 +743,12 @@ function getArrCardsPerPage(arr, cardsPerPage, page) {
 function getSizeImage(arrSizeFull, objSizeOneCard) {
   console.log('зашли в функцию getSizeImage');
   for (let j = 0; j < arrSizeFull.length; j++) {
-    console.log('проверяем arrSizeFull[j][0]', arrSizeFull[j][0]);
     let element = arrSizeFull[j][0].indexOf(objSizeOneCard.id);
-    console.log(element, 'element');
     if (element != -1) {
       objSize = arrSizeFull[j][1];
-      console.log('objSize сразу после присвоения значения', objSize);
       break;
     }
   }
-  console.log('objSize перед концом функции', objSize);
   return objSize;
 }
 
@@ -740,12 +760,8 @@ function loadCards(arr, divOnPage, arrayImgSize = arrSizes) {
   return new Promise((resolve, reject) => {
     console.log('массив на странице в promise load', arr);
     arr.forEach(item => {
-      console.log('передаем в функцию arrCopy', arrCopy);
-      console.log('передаем в функцию item', item);
       let result = getSizeImage(arrCopy, item);
-      console.log('получили result', result);
       let catalogItem = document.createElement('div');
-      console.log('получили catalogItem', catalogItem);
       if (result) {
         if (result.size === 'small') {
           catalogItem.className = 'catalog__item catalog__item_small';
@@ -755,7 +771,6 @@ function loadCards(arr, divOnPage, arrayImgSize = arrSizes) {
       } else {
         reject();
       }
-
 
       catalogItem.id = `catalog__item-${item.id}`;
       divOnPage.append(catalogItem);
@@ -1166,4 +1181,5 @@ function cleaningInputs(arr) {
     item.value = '';
   });
 }
+
 

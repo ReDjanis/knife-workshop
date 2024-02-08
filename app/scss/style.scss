@@ -20,7 +20,7 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    z-index: 5;
+    z-index: 10;
     max-width: 1920px;
     width: 100%;
     height: 100px;
@@ -134,10 +134,13 @@
     &__btn {
         @extend %buttons;
         color: #F4F3F0;
+        border: 5px solid rgba(#d9c7bb, 0.5);
+        box-shadow: -6px 7px 17px #50735f, 2px -1px 11px #c3853e;
         margin-top: 50px;
 
         &:hover {
             @extend %buttons-hover;
+            border-color: transparent;
             box-shadow: 1px 1px 2px rgba(#fff, .2);
         }
     }
@@ -198,14 +201,11 @@
     &__btn {
         display: inline-block;
         @extend %buttons;
-        background: rgba(#50735F, 0.5);
-        border: none;
         margin-top: 35px;
         text-decoration: none;
 
         &:hover {
             @extend %buttons-hover;
-            border: none;
         }
     }
 }
@@ -281,7 +281,7 @@
         width: calc(120px + (160 - 120) * ((100vw - 420px) / (1920 - 420)));
         height: 64px;
         padding: 15px 20px;
-        @include fluidFont(12px, 15px, 13px, 16px, 600px, 1920px, 12px);
+        @include fluidFont(12px, 15px, 14px, 17px, 600px, 1920px, 12px);
         text-transform: uppercase;
         border-bottom: solid 1px #50735F;
         background-color: transparent;
@@ -293,7 +293,7 @@
 
         &:hover {
             background-color: rgba(#50735F, 0.5);
-            transition: all 250ms linear;
+            transition: background-color 0.5s linear;
 
             .gallery__btn-svg {
                 display: block;
@@ -365,6 +365,7 @@
 
 .benefits {
     &__content {
+        margin: 0 auto;
         max-width: 1300px;
         width: 100%;
         padding: 0 50px;
@@ -489,6 +490,7 @@
 
 .questions {
     &__content {
+        margin: 0 auto;
         max-width: 1300px;
         width: 100%;
         padding: 0 50px;
@@ -515,7 +517,7 @@
 
     &__item {
         width: 100%;
-        position: relative;
+
     }
 
     &__details {
@@ -525,23 +527,20 @@
         border: 1px solid rgba(#50735F, 4%);
         box-shadow: 1px 1px 0 #50735F, 0px 1px 6px #c3853e;
         cursor: pointer;
+        transition: all 0.5s ease-in-out;
+        max-height: 85px;
+        overflow: hidden;
 
         &[open] {
-            height: 100%;
-            transition: 1s ease;
-        }
-
-        &[open]>summary {
-            height: 62.5%;
+            max-height: 500px;
         }
 
         &[open]>summary>.questions__line_position-1 {
-            top: 100px;
             transform: rotate(-45deg);
+
         }
 
         &[open]>summary>.questions__line_position-2 {
-            top: 100px;
             transform: rotate(45deg);
         }
 
@@ -549,7 +548,7 @@
             min-height: 50px;
             height: 100%;
             padding: 20px 20px 20px 20px;
-            @include fluidFont(16px, 18px, 28px, 30px, 1100px, 1920px, 16px);
+            @include fluidFont(14px, 18px, 28px, 30px, 800px, 1920px, 16px);
             letter-spacing: 0.5px;
         }
 
@@ -568,14 +567,15 @@
         height: 100%;
         padding: 30px 80px 30px 20px;
         font-weight: 700;
-        @include fluidFont(16px, 18px, 22px, 24px, 1100px, 1920px, 16px);
+        @include fluidFont(14px, 18px, 22px, 24px, 450px, 1920px, 16px);
+        position: relative;
     }
 
     &__line {
         position: absolute;
         width: 20px;
         height: 3px;
-        bottom: 42px;
+        top: 50%;
         background-color: #000;
         border-radius: 3px;
         transition: 0.3s all;
@@ -723,13 +723,10 @@
         @extend %buttons;
         @include fluidFont(14px, 16px, 18px, 20px, 270px, 1920px, 14px);
         padding: 5px 11px;
-        background: rgba(#50735F, 0.5);
-        border: none;
         margin-bottom: 15px;
 
         &:hover {
             @extend %buttons-hover;
-            border: none;
         }
     }
 
@@ -904,7 +901,7 @@
 
     &__text {
         padding: 10px 0;
-        @include fluidFont(16px, 18px, 26px, 30px, 250px, 1920px, 16px);
+        @include fluidFont(14px, 18px, 26px, 30px, 250px, 1920px, 16px);
         letter-spacing: 0.5px;
         text-indent: 30px;
 
@@ -984,7 +981,7 @@
     }
 
     &__text {
-        @include fluidFont(16px, 18px, 26px, 30px, 250px, 1920px, 16px);
+        @include fluidFont(14px, 18px, 26px, 30px, 250px, 1920px, 16px);
         letter-spacing: 0.5px;
         margin-bottom: 10px;
     }
@@ -992,12 +989,12 @@
     &__text_bold {
         letter-spacing: 0.5px;
         font-weight: 700;
-        @include fluidFont(16px, 18px, 26px, 30px, 250px, 1920px, 16px);
+        @include fluidFont(14px, 18px, 26px, 30px, 250px, 1920px, 16px);
     }
 
     &__link {
         font-weight: 700;
-        @include fluidFont(16px, 18px, 26px, 30px, 250px, 1920px, 16px);
+        @include fluidFont(14px, 18px, 26px, 30px, 250px, 1920px, 16px);
         color: rgb(33 65 46);
         text-decoration: none;
         border-bottom: 2px solid rgb(33 65 46);
@@ -1007,12 +1004,9 @@
         align-self: center;
         max-width: 350px;
         @extend %buttons;
-        background: rgba(#50735F, 0.5);
-        border: none;
 
         &:hover {
             @extend %buttons-hover;
-            border: none;
         }
     }
 }
@@ -1041,8 +1035,8 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        row-gap: 20px;
-        margin: 20px 30px 0 0;
+        row-gap: 10px;
+        margin: 30px 30px 0 0;
     }
 
     &__location {
@@ -1090,10 +1084,7 @@
 
     &__close {
         display: none;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 5;
+        align-self: flex-end;
     }
 
     &__button-close {
@@ -1121,7 +1112,6 @@
 
     &__slider {
         width: 100%;
-        max-height: 1100px;
         height: 100%;
         position: relative;
 
@@ -1136,6 +1126,7 @@
 
             img {
                 max-height: 60vh;
+                height: 100%;
                 object-fit: contain;
                 background-color: #f1eee6;
             }
@@ -1176,14 +1167,11 @@
         @extend %buttons;
         @include fluidFont(16px, 18px, 26px, 28px, 270px, 1920px, 16px);
         padding: 10px 20px;
-        background: rgba(#50735F, 0.5);
-        border: none;
         width: 200px;
         margin-top: 20px;
 
         &:hover {
             @extend %buttons-hover;
-            border: none;
         }
     }
 }
@@ -1191,6 +1179,8 @@
 .modal-image {
     max-width: 960px;
     width: 100%;
+    max-height: 758px;
+    min-height: 140px;
     padding: 0;
     border: 0;
     border-radius: 10px;
@@ -1199,6 +1189,14 @@
     &::backdrop {
         background-color: rgba(#22332c, 0.9);
         cursor: pointer;
+    }
+
+    &__close {
+        display: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 5;
     }
 
     .about__picture {
@@ -1215,7 +1213,8 @@
 .modal-form {
     max-width: 960px;
     width: 100%;
-    min-height: 480px;
+    min-height: 590px;
+    height: fit-content;
     padding: 0;
     border: 0;
     border-radius: 10px;
@@ -1328,12 +1327,9 @@
 
         &__submit-btn {
             @extend %buttons;
-            background: rgba(#50735F, 0.5);
-            border: none;
 
             &:hover {
                 @extend %buttons-hover;
-                border: none;
             }
         }
     }
@@ -1342,7 +1338,7 @@
 .modal-message {
     max-width: 500px;
     width: 100%;
-    min-height: 200px;
+    height: 200px;
     padding: 0;
     border: 0;
     border-radius: 10px;
@@ -1366,12 +1362,9 @@
     &__btn {
         @extend %buttons;
         padding: 10px 25px;
-        background: rgba(#50735F, 0.5);
-        border: none;
 
         &:hover {
             @extend %buttons-hover;
-            border: none;
         }
     }
 }
@@ -1595,13 +1588,10 @@
 
     &__button {
         @extend %buttons;
-        background: rgba(#50735F, 0.5);
-        border: none;
         margin-top: 50px;
 
         &:hover {
             @extend %buttons-hover;
-            border: none;
         }
     }
 }
@@ -1623,8 +1613,13 @@
 }
 
 @media screen and (max-width: 1600px) {
-    .container {
-        max-width: calc(540px + (1440 - 540) * ((100vw - 595px) / (1600 - 595)));
+
+    .gallery,
+    .benefits,
+    .questions {
+        &__content {
+            max-width: calc(540px + (1440 - 540) * ((100vw - 595px) / (1600 - 595)));
+        }
     }
 
     #catalog-page {
@@ -1705,6 +1700,12 @@
             display: none;
         }
     }
+
+    .catalog {
+        &__buttons {
+            padding: 40px calc(20px + (250 - 20) * ((100vw - 800px) / (1315 - 800))) 30px;
+        }
+    }
 }
 
 @media screen and (max-width: 1150px) {
@@ -1756,7 +1757,8 @@
     }
 
     .top {
-        margin-top: calc(40px + (0 - 40) * ((100vw - 270px) / (1150 - 270)));
+        margin-top: calc(25px + (0 - 25) * ((100vw - 270px) / (1150 - 270)));
+        padding-bottom: 17px;
 
         &::after {
             left: 0;
@@ -1764,7 +1766,20 @@
         }
     }
 
+    .catalog {
+        .top {
+            &::after {
+                left: 5%;
+                width: 90%;
+            }
+        }
+    }
+
     .footer {
+        &__content {
+            padding: 0;
+        }
+
         &__communication {
             margin-right: calc(0px + (30 - 0) * ((100vw - 995px) / (1150 - 995)));
         }
@@ -1907,7 +1922,14 @@
     .benefits,
     .questions {
         &__content {
-            padding: 0 30px;
+            padding: 0 calc(15px + (30 - 15) * ((100vw - 270px) / (995 - 270)));
+        }
+    }
+
+    .gallery {
+        &__items {
+            row-gap: calc(5px + (30 - 5) * ((100vw - 270px) / (995 - 270)));
+            column-gap: calc(5px + (30 - 5) * ((100vw - 270px) / (995 - 270)));
         }
     }
 
@@ -1952,6 +1974,56 @@
             padding-left: calc(15px + (50 - 15) * ((100vw - 270px) / (995 - 270)));
             padding-right: calc(15px + (50 - 15) * ((100vw - 270px) / (995 - 270)));
         }
+    }
+
+    .modal-image {
+        &__close {
+            display: block;
+        }
+    }
+
+    .modal-message {
+        max-width: calc(250px + (960 - 250) * ((100vw - 270px) / (995 - 270)));
+        width: 100%;
+
+        &__text {
+            padding: 0 15px;
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .gallery {
+        &__buttons {
+            padding: 40px calc(0px + (100 - 0) * ((100vw - 595px) / (920 - 595)));
+        }
+
+        &__btn {
+            &:nth-child(1) {
+                order: 2;
+            }
+
+            &:nth-child(2) {
+                order: 1;
+            }
+
+            &:nth-child(3) {
+                order: 3;
+            }
+
+            &:nth-child(4) {
+                order: 4;
+            }
+        }
+    }
+
+    .questions {
+
+        &__details {
+            max-height: 125px;
+        }
+
     }
 }
 
@@ -2051,11 +2123,22 @@
             }
         }
     }
+
+    .footer {
+        &__content {
+            padding: 0 30px;
+        }
+    }
 }
 
 @media screen and (max-width: 595px) {
-    .container {
-        max-width: 540px;
+
+    .gallery,
+    .benefits,
+    .questions {
+        &__content {
+            max-width: 540px;
+        }
     }
 
     .present {
@@ -2076,13 +2159,13 @@
         &__btn {
             font-size: 0;
             padding: 0;
-            width: 50px;
-            height: 50px;
+            width: calc(40px + (50 - 40) * ((100vw - 250px) / (595 - 250)));
+            height: calc(40px + (50 - 40) * ((100vw - 250px) / (595 - 250)));
             border: solid 1px #50735F;
             column-gap: 0;
 
             &:nth-child(odd) {
-                width: 50px;
+                width: calc(40px + (50 - 40) * ((100vw - 250px) / (595 - 250)));
             }
 
             .mini,
@@ -2092,27 +2175,18 @@
         }
 
         &__items {
-            grid-template-columns: minmax(auto, 350px);
             margin: 0;
-        }
-
-        &__items.other {
-            .gallery__item:nth-child(4) {
-                grid-column: span 1;
-            }
+            grid-template-columns: repeat(2, minmax(100px, 240px));
         }
 
         &__items.knives-kitchen {
             grid-template-rows: repeat(2, auto);
-
-            .gallery__item:nth-child(5) {
-                display: block;
-            }
         }
 
         &__top {
             grid-area: 1/1/2/3;
             justify-self: center;
+            margin-top: 60px;
         }
 
         &__pass {
@@ -2125,11 +2199,12 @@
     }
 
     .benefits {
-        max-width: 410px;
+        width: 100%;
         margin: 0 auto;
 
         &__top {
             text-align: center;
+            padding-top: 70px;
         }
 
         &__item {
@@ -2152,7 +2227,7 @@
         }
 
         .first {
-            margin-bottom: 20px;
+            margin-bottom: calc(20px + (40 - 20) * ((100vw - 250px) / (595 - 250)));
 
             &::after {
                 content: none;
@@ -2167,7 +2242,7 @@
         .second {
             border-top: 0;
             padding-top: 0;
-            margin: 20px 0;
+            margin: calc(20px + (40 - 20) * ((100vw - 250px) / (595 - 250))) 0;
 
             &::after {
                 content: none;
@@ -2177,7 +2252,7 @@
         .third {
             border-top: 0;
             padding-top: 0;
-            margin: 20px 0;
+            margin: calc(20px + (40 - 20) * ((100vw - 250px) / (595 - 250))) 0;
 
             &::after {
                 content: none;
@@ -2187,11 +2262,16 @@
                 content: none;
             }
         }
+
+        &__img {
+            min-height: 0;
+        }
     }
 
     .questions {
         &__top {
             text-align: center;
+            padding-top: 70px;
         }
     }
 }
@@ -2210,8 +2290,22 @@
             padding: 0 15px;
         }
 
+        &__details {
+            max-height: 180px;
+        }
+
         &__summary {
-            padding: 30px 15px 80px 15px;
+            padding: 30px 15px 60px 15px;
+        }
+
+        &__line {
+            top: 80%;
+        }
+    }
+
+    .footer {
+        &__content {
+            padding: 0 15px;
         }
     }
 
@@ -2229,7 +2323,7 @@
         height: 630px;
 
         &__content {
-            row-gap: 15px;
+            row-gap: calc(25px + (80 - 15) * ((100vw - 270px) / (450 - 270)));
         }
 
         &__title {
@@ -2250,8 +2344,8 @@
         &__items {
             grid-template-columns: repeat(auto-fit, minmax(132.5px,
                         calc(132.5px + (207.5 - 132.5) * ((100vw - 300px) / (450 - 300)))));
-            grid-template-rows: repeat(auto-fit, minmax(141px, 
-            calc(141px + (215 - 141) * ((100vw - 300px) / (450 - 300)))));
+            grid-template-rows: repeat(auto-fit, minmax(141px,
+                        calc(141px + (215 - 141) * ((100vw - 300px) / (450 - 300)))));
             gap: 5px;
         }
 
@@ -2333,6 +2427,15 @@
     }
 }
 
+@media screen and (max-width: 340px) {
+    .gallery {
+        &__buttons {
+            flex-wrap: nowrap;
+            column-gap: calc(10px + (20 - 10) * ((100vw - 250px) / (340 - 250)));
+        }
+    }
+}
+
 @media screen and (max-width: 300px) {
     .catalog {
         &__content {
@@ -2390,6 +2493,34 @@
 
         &__item-subtitle {
             display: none;
+        }
+    }
+}
+
+// только для сафари
+_::-webkit-full-page-media,
+_:future,
+:root .safari_only {
+
+    .modal {
+        min-height: 900px;
+    }
+
+    .modal-image {
+        min-height: 600px;
+    }
+
+}
+
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+
+        .modal {
+            min-height: 900px;
+        }
+
+        .modal-image {
+            min-height: 600px;
         }
     }
 }
