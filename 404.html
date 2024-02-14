@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.min.css">
+</head>
+
+<body>
+  <div class="wrapper error">
+    <div class="error__image">
+      404
+    </div>
+
+    <h1 class="error__title">
+      Страница не найдена!
+    </h1>
+    <p class="error__info">
+      Возможно, она была удалена, или вы ввели неверный адрес.</br>
+      Перейдите на главную страницу.
+    </p>
+    <button class="error__button">
+      Вернуться на главную
+    </button>
+  </div>
+
+  <script src="./js/slick.min.js"></script>
+  <script>
+    const btnToReturn = document.querySelector('.error__button');
+
+    btnToReturn.addEventListener('click', () => {
+      sessionStorage.setItem('activePage', 'mainPage');
+      window.location.replace('http://localhost:3000/index.html');
+    })
+  </script>
+</body>
+
+</html>
