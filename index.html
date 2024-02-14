@@ -20,10 +20,10 @@
     <meta property="og:description"
         content="Знакомьтесь и вдохновляйтесь работами кузнечного мастера. И не забудьте сделать свой первый заказ" />
     <meta property="og:url" content="https://redjanis.github.io/knife-workshop/" />
-    <meta property="og:image" content="./images/content/photo.webp" />
+    <meta property="og:image" content="/images/content/photo.webp" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image"
-        content="./images/content/photo.webp" />
+        content="/images/content/photo.webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="896" />
     <meta property="og:site_name" content="Ножевая мастерская А.Трусова" />
@@ -35,109 +35,213 @@
 
 <body>
     <div class="wrapper">
+        
         <header class="header">
+        
             <div class="container header__content">
+        
                 <a class="header__logo-link" href="#" data-router="main-link">
+        
                     <img class="header__logo" src="./images/sprite.svg#logо" alt="На главную страницу">
+        
                 </a>
+        
+        
         
                 <nav class="menu">
         
+        
+        
                     <ul class="menu__list">
         
+        
+        
                         <li class="menu__item">
+        
+        
         
                             <a class="menu__link" data-router="main-link" href="#">Главная</a>
         
+        
+        
                         </li>
         
+        
+        
                         <li class="menu__item">
+        
+        
         
                             <a class="menu__link" data-router="catalog-link" href="#">Каталог</a>
         
+        
+        
                         </li>
         
+        
+        
                         <li class="menu__item">
+        
+        
         
                             <a class="menu__link" data-router="about-link" href="#">Обо мне</a>
         
+        
+        
                         </li>
+        
+        
         
                         <li class="menu__item">
         
+        
+        
                             <a class="menu__link" data-router="delivery-link" href="#">Доставка</a>
+        
+        
         
                         </li>
         
+        
+        
                     </ul>
         
+        
+        
                 </nav>
+        
                 <div class="header__right-inner">
+        
                     <div class="header__search">
+        
                         <input class="header__search-input search-input" type="text" placeholder="Поиск по каталогу">
+        
                         <button class="header__search-btn" data-name="search-button">
+        
                             <svg class="header__search-svg">
+        
                                 <use href="./images/sprite.svg#search-white-icon"></use>
+        
                             </svg>
+        
                         </button>
+        
                     </div>
+        
                     <div class="contacts">
+        
                         <a class="contacts__social-link" href="https://t.me/KapitanKapitoshka" target="_blank">
+        
                             <svg class="contacts__social-svg telegram">
+        
                                 <use href="./images/sprite.svg#telegram-icon"></use>
+        
                             </svg>
+        
                         </a>
+        
                         <a class="contacts__social-link" href="https://vk.com/kovkaknife" target="_blank">
+        
                             <svg class="contacts__social-svg vk">
+        
                                 <use href="./images/sprite.svg#vk-icon"></use>
+        
                             </svg>
+        
                         </a>
+        
                         <a class="contacts__email-link" href="mailto:DamaskKnife@yandex.ru">
+        
                             <svg class="contacts__email-svg email">
+        
                                 <use href="./images/sprite.svg#email-icon"></use>
+        
                             </svg>
+        
                             <span class="contacts__text">
+        
                                 DamaskKnife@yandex.ru
+        
                             </span>
+        
                         </a>
+        
                     </div>
+        
                 </div>
+        
                 <div class="burger">
+        
                     <input type="checkbox" id="check-menu">
+        
                     <label for="check-menu" class="burger__label"></label>
         
+        
+        
                     <div class="burger__line burger__line_position-1"></div>
+        
                     <div class="burger__line burger__line_position-2"></div>
+        
                     <div class="burger__line burger__line_position-3"></div>
+        
                     <div class="burger__line burger__line_position-4"></div>
         
         
+        
+        
+        
                     <nav class="burger__nav">
+        
                         <a class="burger__item" href="#" data-router="main-link">Главная</a>
+        
                         <a class="burger__item" href="#" data-router="catalog-link">Каталог</a>
+        
                         <a class="burger__item" href="#" data-router="about-link">Обо мне</a>
+        
                         <a class="burger__item" href="#" data-router="delivery-link">Доставка</a>
+        
                         <a class="burger__item" href="https://t.me/KapitanKapitoshka" target="_blank">
+        
                             Телеграм
+        
                         </a>
+        
                         <a class="burger__item" href="https://vk.com/kovkaknife" target="_blank">
+        
                             Вконтакте
+        
                         </a>
+        
                         <a class="burger__item" href="mailto:DamaskKnife@yandex.ru">
+        
                             DamaskKnife@yandex.ru
+        
                         </a>
+        
                         <a class="burger__item" href="#" data-name="search-button">
+        
                             <svg class="burger__item-svg">
+        
                                 <use href="./images/sprite.svg#search-white-icon"></use>
+        
                             </svg>
+        
                             Поиск по каталогу
+        
                         </a>
+        
+        
         
                     </nav>
         
+        
+        
                 </div>
         
+        
+        
             </div>
+        
         </header>
         <main class="main" id="main-page">
             <section class="present">
