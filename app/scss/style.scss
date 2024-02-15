@@ -84,9 +84,9 @@
     width: 100%;
     height: 700px;
     background-image: url('../images/content/10.webp');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
 
     &__content {
         display: flex;
@@ -98,7 +98,10 @@
         background-color: rgba(rgba(65, 56, 56, 0.5), 0.5);
         box-shadow: 0px 20px 16px 5px #5b473a;
         padding: 0 100px;
+     
     }
+
+    
 
     &__title {
         max-width: 700px;
@@ -285,6 +288,7 @@
         text-transform: uppercase;
         border-bottom: solid 1px #50735F;
         background-color: transparent;
+        position: relative;
 
         &:nth-child(odd) {
             max-width: 260px;
@@ -299,6 +303,7 @@
                 display: block;
             }
         }
+
     }
 
     .mini {
@@ -319,11 +324,11 @@
         grid-template-rows: repeat(2, auto);
         column-gap: 30px;
         row-gap: 30px;
-        transition: display .5s;
 
         a:hover {
             opacity: 0.8;
             box-shadow: 0px 0px 9px 1px #060606;
+            transition: all .3s ease;
         }
     }
 
@@ -394,6 +399,7 @@
         a:hover {
             opacity: 0.8;
             box-shadow: 0px 0px 9px 1px #060606;
+            transition: all .3s ease;
         }
     }
 
@@ -640,8 +646,8 @@
     &__items {
         padding-bottom: 25px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(191px, 191px));
-        grid-template-rows: repeat(auto-fit, minmax(215px, 215px));
+        grid-template-columns: repeat(auto-fit, minmax(274px, 274px));
+        grid-template-rows: repeat(auto-fit, minmax(280px, 280px));
         grid-auto-flow: dense;
         gap: 10px;
         justify-content: center;
@@ -651,7 +657,7 @@
         display: none;
         flex-direction: column;
         align-items: center;
-        row-gap: 15px;
+        row-gap: 25px;
         width: 100%;
         padding: 10px 10px 15px 10px;
         border: 1px solid #ada9a9;
@@ -661,11 +667,12 @@
     &__item_small {
         grid-row: span 2;
         grid-column: span 1;
-        height: 440px;
+        height: 570px;
+
 
 
         img {
-            height: 255px;
+            height: 370px;
         }
 
         .catalog__item-text {
@@ -679,15 +686,15 @@
         grid-row: span 1;
         flex-direction: row;
         column-gap: 10px;
-        max-height: 215px;
+        max-height: 280px;
         height: 100%;
 
         img {
-            height: 170px;
+            height: 235px;
         }
 
         .slider {
-            max-width: 255px;
+            max-width: 360px;
         }
 
         .catalog__item-desc {
@@ -1618,7 +1625,7 @@
     .benefits,
     .questions {
         &__content {
-            max-width: calc(540px + (1440 - 540) * ((100vw - 595px) / (1600 - 595)));
+            max-width: calc(540px + (1300 - 540) * ((100vw - 595px) / (1600 - 595)));
         }
     }
 
@@ -2127,6 +2134,70 @@
     .footer {
         &__content {
             padding: 0 30px;
+        }
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .catalog {
+        &__items {
+            padding-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(191px, 191px));
+            grid-template-rows: repeat(auto-fit, minmax(215px, 215px));
+            grid-auto-flow: dense;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        &__item {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 15px;
+            width: 100%;
+            padding: 10px 10px 15px 10px;
+            border: 1px solid #ada9a9;
+            box-shadow: 0px 0px 9px 1px #9f9696;
+        }
+
+        &__item_small {
+            grid-row: span 2;
+            grid-column: span 1;
+            height: 440px;
+
+
+            img {
+                height: 255px;
+            }
+
+            .catalog__item-text {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &__item_big {
+            grid-column: span 2;
+            grid-row: span 1;
+            flex-direction: row;
+            column-gap: 10px;
+            max-height: 215px;
+            height: 100%;
+
+            img {
+                height: 170px;
+            }
+
+            .slider {
+                max-width: 255px;
+            }
+
+            .catalog__item-desc {
+                row-gap: 25px;
+                justify-content: flex-end;
+            }
+
         }
     }
 }
